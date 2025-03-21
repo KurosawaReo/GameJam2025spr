@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e433e98408830814ea046c0eb4731984, type: 3}
   m_Name: Archer-0001
   m_EditorClassIdentifier: 
-  jobId: Job-0000
-  jobName: JobName
+  jobId: Archer-0001
+  jobName: Archer

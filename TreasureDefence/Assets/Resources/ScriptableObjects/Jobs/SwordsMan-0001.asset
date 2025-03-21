@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebeab5bf39a91a241a5c51f0153478b9, type: 3}
   m_Name: SwordsMan-0001
   m_EditorClassIdentifier: 
-  jobId: Job-0000
-  jobName: JobName
+  jobId: SwordsMan-0001
+  jobName: SwordsMan

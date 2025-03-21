@@ -22,11 +22,12 @@ namespace Gloval
     /// </summary>
     public enum TileType
     {
-        EMPTY,      // 空
-        OBSTACLE,   // 障害物
-        WALL,       // 壁
-        TREASURE,   // 宝
-        ENEMY_SPAWN // 敵の生成ポイント
+        EMPTY,          // 空
+        OBSTACLE,       // 障害物
+        RIDE_OBSTACLE,  // 乗れる障害物
+        WALL,           // 壁
+        TREASURE,       // 宝
+        ENEMY_SPAWN     // 敵の生成ポイント
     }
 
     /// <summary>
@@ -41,11 +42,12 @@ namespace Gloval
         public const string IMAGES_PATH = "Images/";    // Imagesフォルダのパス
         public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス
         {
-            IMAGES_PATH + "Empty",      // 空
-            IMAGES_PATH + "Obstacle",   // 障害物
-            IMAGES_PATH + "Wall",       // 壁
-            IMAGES_PATH + "Treasure",   // 宝
-            IMAGES_PATH + "EnemySpawn", // 敵の生成ポイント
+            IMAGES_PATH + "Empty",          // 空
+            IMAGES_PATH + "Obstacle",       // 障害物
+            IMAGES_PATH + "RideObstacle",   // 障害物
+            IMAGES_PATH + "Wall",           // 壁
+            IMAGES_PATH + "Treasure",       // 宝
+            IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント
         };
     }
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a3b8a631c7c0a42a8db434f3ce9ae3, type: 3}
   m_Name: Defender-0001
   m_EditorClassIdentifier: 
-  jobId: Job-0000
-  jobName: JobName
+  jobId: Defender-0001
+  jobName: Defender

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4097412e1955d49a251df081e3e904, type: 3}
   m_Name: Wizard-0001
   m_EditorClassIdentifier: 
-  jobId: Job-0000
-  jobName: JobName
+  jobId: Wizard-0001
+  jobName: Wizard
