@@ -44,6 +44,9 @@ public class UIPrefab
 /// </summary>
 public class DragUIManager : MonoBehaviour
 {
+    [Header("- script -")]
+    [SerializeField] GridManager scptGridMng;
+
     [Header("- prefab -")]
     [SerializeField] UIPrefab prfb;
 
@@ -51,17 +54,44 @@ public class DragUIManager : MonoBehaviour
 
     void Update()
     {
+        DragUI();
+    }
+
+    /// <summary>
+    /// ドラッグ処理.
+    /// </summary>
+    private void DragUI()
+    {
         //操作objがある間(=マウスクリック中)
         if (nowActionObj != null)
         {
-            nowActionObj.transform.position = Gl_Func.GetMousePos();    //マウス座標.
+            var mPos = Gl_Func.GetMousePos();       //マウス座標取得.
+            nowActionObj.transform.position = mPos; //移動.
 
             //マウスボタンを離した瞬間.
             if (Input.GetMouseButtonUp(0))
             {
-                var mPos = Gl_Func.GetMousePos();           //マウス座標取得.
-                var bPos = Gl_Func.WPosToBPos(mPos);        //ボード座標に変換.
-                Gl_Func.ObjPlaceOnBPos(nowActionObj, bPos); //ボード座標を元に設置.
+                var (x, y) = Gl_Func.WPosToBPos(mPos); //ボード座標に変換.
+
+                //盤面内である場合.
+                if (x >= 0 && x < scptGridMng.width &&
+                    y >= 0 && y < scptGridMng.height)
+                {
+                    //設置可能なマスなら.
+                    if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
+                        scptGridMng.grid[x, y].tileType == TileType.RIDE_OBSTACLE)
+                    {
+                        Gl_Func.ObjPlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
+                    }
+                    else
+                    {
+                        Destroy(nowActionObj);
+                    }
+                }
+                else
+                {
+                    Destroy(nowActionObj);
+                }
 
                 nowActionObj = null; //もう操作しないためobjデータを破棄.
             }
