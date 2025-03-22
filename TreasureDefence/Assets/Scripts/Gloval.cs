@@ -40,6 +40,8 @@ namespace Gloval
         public const int CELL_SIZE = 100;           // 1マスの大きさ
 
         public const string IMAGES_PATH = "Images/";    // Imagesフォルダのパス
+        public const string RESOURCES_PATH = "Resources/";
+        public const string GRID_JSON_PATH = "Assets/" + RESOURCES_PATH + "gridData.json";    // gridDataのパス
         public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス
         {
             IMAGES_PATH + "Empty",          // 空

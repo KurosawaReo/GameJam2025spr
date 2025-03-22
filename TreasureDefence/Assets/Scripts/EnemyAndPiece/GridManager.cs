@@ -272,8 +272,7 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void LoadGrid()
     {
-        // 環境の違いでもファイルが開けるようにする
-        savePath = Path.Combine(Application.persistentDataPath, "gridData.json");
+        savePath = Gl_Const.GRID_JSON_PATH;
 
         if (File.Exists(savePath))
         {
