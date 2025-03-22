@@ -143,6 +143,9 @@ public class GridEditor : EditorWindow
 
         texture.SetPixels(pixels);
         texture.Apply();
+
+        texture.hideFlags = HideFlags.DontSave;
+
         return texture;
     }
 
@@ -150,7 +153,7 @@ public class GridEditor : EditorWindow
     {
         if (gridManager == null) return;
 
-        var path = Path.Combine(Application.persistentDataPath, "gridData.json");
+        var path = Gl_Const.GRID_JSON_PATH;
         if (string.IsNullOrEmpty(path)) return;
 
         var data = new GridData { width = gridManager.width, height = gridManager.height };

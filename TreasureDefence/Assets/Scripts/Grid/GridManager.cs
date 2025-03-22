@@ -8,6 +8,8 @@ using Gloval;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -23,12 +25,6 @@ public class GridManager : MonoBehaviour
     [Tooltip("盤面をまとめる親オブジェクトをセット")]
     [SerializeField] Transform gridParent;
 
-    [Tooltip("敵のプレハブをセット")]
-    [SerializeField] GameObject enemyPrefab;
-
-    [Tooltip("敵をまとめる親オブジェクトをセット")]
-    [SerializeField] Transform enemyParent;
-
     [Tooltip("駒のプレハブをセット")]
     [SerializeField] GameObject piecePrefab;
 
@@ -41,20 +37,25 @@ public class GridManager : MonoBehaviour
     [Tooltip("盤面の情報をセット")]
     string savePath;
 
-    void Start()
+    [Tooltip("ノードリスト")]
+    List<Node> nodes = new List<Node>();
+
+    private void Awake()
     {
         // 盤面情報を読み込む
         LoadGrid();
 
         // デバッグ用
         //InitGrid();
-        PrintGrid();
+        //PrintGrid();
 
         // 盤面を生成
         GenerateGridObjects();
+    }
 
-        // 敵を生成
-        SpawnEnemies();
+    void Start()
+    {
+        
     }
 
     /// <summary>
@@ -130,12 +131,25 @@ public class GridManager : MonoBehaviour
                 //    var obj = Instantiate(gridPrefab, new Vector3(x, 0, y), Quaternion.identity);
                 //    obj.GetComponent<Image>().sprite = sprite;
                 //}
-                
+       
+                var sprite = GetPrefab(grid[x, y].tileType);
+                if (sprite != null)
+                {
+                    // 生成
+                    var obj = Instantiate(gridPrefab, gridParent);
+
+                    // 位置を移動
+                    obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
+
+                    // 画像を変更
+                    obj.GetComponent<Image>().sprite = sprite;
+                }
+
                 // 生成
-                var obj = Instantiate(gridPrefab, gridParent);
+                //var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
+                //obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
             }
         }
     }
@@ -175,9 +189,10 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        if (grid[x, y].tileType == TileType.OBSTACLE || grid[x, y].tileType == TileType.WALL)
+        if (grid[x, y].tileType == TileType.OBSTACLE || grid[x, y].tileType == TileType.WALL ||
+            grid[x, y].tileType == TileType.TREASURE || grid[x, y].tileType == TileType.ENEMY_SPAWN)
         {
-            // 障害物や壁の上には置けない
+            // 障害物や壁、宝、敵生成ポイントの上には置けない
             return false;
         }
 
@@ -278,8 +293,7 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void LoadGrid()
     {
-        // 環境の違いでもファイルが開けるようにする
-        savePath = Path.Combine(Application.persistentDataPath, "gridData.json");
+        savePath = Gl_Const.GRID_JSON_PATH;
 
         if (File.Exists(savePath))
         {
@@ -335,11 +349,11 @@ public class GridManager : MonoBehaviour
         List<Vector2Int> neighbors = new List<Vector2Int>();
 
         Vector2Int[] directions = {
+        new Vector2Int(1, 0),   // 右
+        new Vector2Int(-1, 0),  // 左
         new Vector2Int(0, 1),   // 上
         new Vector2Int(0, -1),  // 下
-        new Vector2Int(1, 0),   // 右
-        new Vector2Int(-1, 0)   // 左
-    };
+        };
 
         foreach (var dir in directions)
         {
@@ -353,13 +367,26 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 位置がグリッド内かどうかを判定するメソッド
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsPositionValid(Vector2Int position)
+    {
+        // 位置がグリッドの範囲内に収まっているか確認
+        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+    }
+
+    /// <summary>
     /// マスが障害物かどうか判定.
     /// </summary>
     /// <param name="position">位置</param>
     /// <returns>障害物かどうか</returns>
     public bool IsObstacle(Vector2Int position)
     {
-        return grid[position.x, position.y].tileType == TileType.OBSTACLE;
+        return grid[position.x, position.y].tileType == TileType.OBSTACLE      ||
+               grid[position.x, position.y].tileType == TileType.RIDE_OBSTACLE ||
+               grid[position.x, position.y].tileType == TileType.WALL;
     }
 
     /// <summary>

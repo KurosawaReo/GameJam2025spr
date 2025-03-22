@@ -60,8 +60,10 @@ namespace Gloval
 
         public const  int    ENTITY_ADDRES_NUM = 2;     // エンティティの現在地管理用配列のサイズ.
 
-        public const  string IMAGES_PATH = "Images/";   // Imagesフォルダのパス.
-        public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス.
+        public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
+        public const string RESOURCES_PATH = "Resources/";
+        public const string GRID_JSON_PATH = "Assets/" + RESOURCES_PATH + "gridData.json"; // gridDataのパス
+        public static string[] TILE_TYPE_IMAGES_PATH =      // タイルタイプ別の画像のパス
         {
             IMAGES_PATH + "Empty",          // 空.
             IMAGES_PATH + "Obstacle",       // 障害物.
@@ -70,6 +72,8 @@ namespace Gloval
             IMAGES_PATH + "Treasure",       // 宝.
             IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
         };
+
+        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
     }
 
     /// <summary>
