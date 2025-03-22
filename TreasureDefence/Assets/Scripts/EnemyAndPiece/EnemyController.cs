@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
         gridManager = GameObject.FindObjectOfType<GridManager>();
 
         // 敵の生成位置をスタート位置として設定
-        var startPosition = new Vector2Int((int)transform.localPosition.x / Gl_Const.CELL_SIZE, (int)transform.localPosition.y / Gl_Const.CELL_SIZE);
+        var startPosition = new Vector2Int((int)transform.localPosition.x / Gl_Const.BOARD_CELL_SIZE, (int)transform.localPosition.y / Gl_Const.BOARD_CELL_SIZE);
 
         // ゴール位置を盤面から取得
         var goalPosition = gridManager.FindTreasurePosition();
