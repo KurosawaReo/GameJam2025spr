@@ -15,7 +15,43 @@ public class Enemy : MonoBehaviour
     [Tooltip("グリッドマネージャーをセット")]
     GridManager gridManager;
 
+    [Tooltip("敵をステートを管理する用")]
+    public EntityState currentState = EntityState.STOP;
+
     void Start()
+    {
+        Init();
+    }
+
+    void Update()
+    {
+        switch (currentState)
+        {
+            case EntityState.STOP:
+                StopState();
+                break;
+
+            case EntityState.MOVE:
+                MoveState();
+                break;
+            
+            case EntityState.ATTACK:
+                AttackState();
+                break;
+            
+            case EntityState.DEATH:
+                DeathState();
+                break;
+            
+            case EntityState.NONE:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
+    void Init()
     {
         // グリッドマネージャーを取得
         gridManager = FindObjectOfType<GridManager>();
@@ -23,10 +59,10 @@ public class Enemy : MonoBehaviour
         // 現在の位置をセルサイズで割ってどのマスにいるのかを特定する
         currentPos = new Vector2Int(Mathf.RoundToInt(transform.localPosition.x / Gl_Const.BOARD_CELL_SIZE),
                                     Mathf.RoundToInt(transform.localPosition.y / Gl_Const.BOARD_CELL_SIZE));
-        
+
         // 宝の位置を取得
         targetPos = gridManager.FindTreasurePosition();
-        
+
         // 移動処理
         StartCoroutine(MoveToTarget());
     }
@@ -147,6 +183,50 @@ public class Enemy : MonoBehaviour
         }
         path.Reverse();
         return path;
+    }
+
+    /// <summary>
+    /// ステートがStopの時の処理
+    /// </summary>
+    private void StopState()
+    {
+    }
+
+    /// <summary>
+    /// ステートがMoveの時の処理
+    /// </summary>
+    private void MoveState()
+    {
+    }
+
+    /// <summary>
+    /// ステートがAttackの時の処理
+    /// </summary>
+    private void AttackState()
+    {
+    }
+
+    /// <summary>
+    /// ステートがDeathの時の処理
+    /// </summary>
+    private void DeathState()
+    {
+        // 死亡処理
+    }
+
+    /// <summary>
+    /// ステートを変更する時の処理
+    /// </summary>
+    public void ChangeState(EntityState newState)
+    {
+        // 変更後のステートが変更前と同じではないか確認する
+        if (currentState == newState)
+        {
+            return;
+        }
+
+        print($"State changed: {currentState} → {newState}");
+        currentState = newState;
     }
 }
 

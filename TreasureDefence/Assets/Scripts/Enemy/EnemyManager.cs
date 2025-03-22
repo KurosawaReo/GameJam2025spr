@@ -62,11 +62,10 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnEnemies()
     {
-        // todo できれば各敵スポーンのところからランダムな時間で敵が出てくるようにする
-        // todo 敵が駒を狙いに行くようにする
         // todo 敵が駒を攻撃する
         // todo 敵と駒にHPをつける
         // todo 敵と駒のHPが0になったら破壊する
+        // todo 駒を無視する敵(進行方向にいる場合は攻撃)と周囲に駒いた場合に駒を攻撃する敵を作る
 
         for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
         {

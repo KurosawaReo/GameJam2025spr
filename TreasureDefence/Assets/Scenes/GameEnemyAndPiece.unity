@@ -681,9 +681,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scptGridMng: {fileID: 1116781582}
   prfb:
-    m_test01: {fileID: 695272532121394137, guid: cb7eae7fab53e8a47afc013cef96688a, type: 3}
-    m_test02: {fileID: 695272532121394137, guid: ffea6f678b4782044b26345ef4c95477, type: 3}
-    m_test03: {fileID: 695272532121394137, guid: b4351708934f05e43abf2c9ec356ba3d, type: 3}
+    m_test01: {fileID: 695272532121394137, guid: 1f2528e5235fd994494a777e8fde7357, type: 3}
+    m_test02: {fileID: 695272532121394137, guid: f03315b57ca3d4748b8c80a97c585be3, type: 3}
+    m_test03: {fileID: 695272532121394137, guid: d8ef26aa2312c69489c4e2365e60dc52, type: 3}
+    m_test04: {fileID: 695272532121394137, guid: 8df7fa364d549604696daa919f985302, type: 3}
     m_inObj: {fileID: 267426612}
   anim:
     m_batu: {fileID: 3386340871486958573, guid: fe9e936b68bd3d6449b29c06e8548525, type: 3}
@@ -1007,7 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scptDragUI: {fileID: 596354639}
-  action: 2
+  action: 3
 --- !u!114 &1329896335
 MonoBehaviour:
   m_ObjectHideFlags: 0
