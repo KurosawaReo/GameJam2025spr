@@ -112,7 +112,7 @@ namespace Gloval
     {
         public TileType     tileType;     // タイルタイプ
         public bool         isOccupied;   // 駒が置いてあるかどうか
-        //public EntityBase   entity;       // エンティティの実体をセット
+        public EntityBase   entity;       // エンティティの実体をセット
 
         /// <summary>
         /// コンストラクタ
@@ -122,7 +122,7 @@ namespace Gloval
         {
             tileType    = _type;
             isOccupied  = false;
-            //entity      = null;
+            entity      = null;
         }
     }
 }
