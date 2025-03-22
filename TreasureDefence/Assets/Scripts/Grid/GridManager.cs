@@ -3,6 +3,10 @@
 
    伊野原先輩作.
    盤面の縦横グリッド数は可変値っぽいため、ここから取得する.
+
+   2025/03/22放課後やったこと:
+   ・MoveEnemyData()の追加
+   ・なぜか機能が同じ関数が2つあったため、IsInsideGrid()にまとめた
 */
 using Gloval;
 using UnityEngine;
@@ -10,6 +14,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
@@ -369,14 +374,32 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 位置がグリッド内かどうかを判定するメソッド
+    /// grid配列に既に入っているentityを移動させる.
     /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    public bool IsPositionValid(Vector2Int position)
+    /// <param name="_nowPos">元の配列位置</param>
+    /// <param name="_move">移動量</param>
+    /// <returns>移動に成功したか</returns>
+    public bool MoveEntityData(Vector2Int _nowPos, Vector2Int _move)
     {
-        // 位置がグリッドの範囲内に収まっているか確認
-        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+        int x = _nowPos.x;
+        int y = _nowPos.y;
+
+        //配列内であれば.
+        if (IsInsideGrid(new Vector2Int(x, y)))
+        {
+            //データを移動させる.
+            grid[x, y].entity     = grid[x+_move.x, y+_move.y].entity;
+            grid[x, y].isOccupied = grid[x+_move.x, y+_move.y].isOccupied;
+            //元の場所は空に.
+            grid[x+_move.x, y+_move.y].entity     = null;
+            grid[x+_move.x, y+_move.y].isOccupied = false;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -392,12 +415,12 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 盤面の範囲チェック.
+    /// 盤面外に出ていないかチェック.
     /// </summary>
-    /// <param name="position">位置</param>
+    /// <param name="pos">位置</param>
     /// <returns>盤面の範囲内かどうか</returns>
-    public bool IsInsideGrid(Vector2Int position)
+    public bool IsInsideGrid(Vector2Int pos)
     {
-        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+        return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
 }
