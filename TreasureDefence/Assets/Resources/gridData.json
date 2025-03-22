@@ -5,57 +5,57 @@
         {
             "x": 0,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 1,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 2,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 3,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 4,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 5,
-            "tileType": 0
+            "tileType": 4
         },
         {
             "x": 0,
             "y": 6,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 7,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 8,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 0,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 1,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 1,
@@ -100,12 +100,12 @@
         {
             "x": 1,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 2,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 2,
@@ -150,12 +150,12 @@
         {
             "x": 2,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 3,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 3,
@@ -200,12 +200,12 @@
         {
             "x": 3,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 4,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 4,
@@ -250,12 +250,12 @@
         {
             "x": 4,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 5,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 5,
@@ -300,12 +300,12 @@
         {
             "x": 5,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 6,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 6,
@@ -350,12 +350,12 @@
         {
             "x": 6,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 7,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 7,
@@ -400,12 +400,12 @@
         {
             "x": 7,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 8,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 8,
@@ -450,57 +450,57 @@
         {
             "x": 8,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 0,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 1,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 2,
-            "tileType": 0
+            "tileType": 5
         },
         {
             "x": 9,
             "y": 3,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 4,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 5,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 6,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 7,
-            "tileType": 0
+            "tileType": 5
         },
         {
             "x": 9,
             "y": 8,
-            "tileType": 0
+            "tileType": 3
         },
         {
             "x": 9,
             "y": 9,
-            "tileType": 0
+            "tileType": 3
         }
     ]
 }

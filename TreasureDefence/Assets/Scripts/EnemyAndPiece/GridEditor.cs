@@ -143,6 +143,9 @@ public class GridEditor : EditorWindow
 
         texture.SetPixels(pixels);
         texture.Apply();
+
+        texture.hideFlags = HideFlags.DontSave;
+
         return texture;
     }
 
