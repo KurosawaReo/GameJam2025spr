@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-    public Button Titlebutton;
 
     static public TitleManager/*âºñºèÃ*/ instance;
 
@@ -22,17 +21,8 @@ public class TitleManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnClickedButton(string DifficultyScene)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SceneManager.LoadScene("Difficulty");
-        }
-    }
-    public void OnClickedButtonEasy()
-    {
-        SceneManager.LoadScene("Difficulty");
+        SceneManager.LoadScene("DifficultyScene");
     }
 }
