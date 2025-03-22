@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Archer-0000", menuName = "Job/Archer")]
 public class Archer : JobBase
 {
-
+    // üˆÍ2ƒ}ƒX‚Ì“G‚ÉUŒ‚
 }

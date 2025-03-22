@@ -2,6 +2,7 @@ using Gloval;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 public class GridManager : MonoBehaviour
 {
@@ -17,12 +18,6 @@ public class GridManager : MonoBehaviour
     [Tooltip("盤面をまとめる親オブジェクトをセット")]
     [SerializeField] Transform gridParent;
 
-    [Tooltip("敵のプレハブをセット")]
-    [SerializeField] GameObject enemyPrefab;
-
-    [Tooltip("敵をまとめる親オブジェクトをセット")]
-    [SerializeField] Transform enemyParent;
-
     [Tooltip("駒のプレハブをセット")]
     [SerializeField] GameObject piecePrefab;
 
@@ -35,6 +30,9 @@ public class GridManager : MonoBehaviour
     [Tooltip("盤面の情報をセット")]
     string savePath;
 
+    [Tooltip("ノードリスト")]
+    List<Node> nodes = new List<Node>();
+
     void Start()
     {
         // 盤面情報を読み込む
@@ -42,13 +40,10 @@ public class GridManager : MonoBehaviour
 
         // デバッグ用
         //InitGrid();
-        PrintGrid();
+        //PrintGrid();
 
         // 盤面を生成
         GenerateGridObjects();
-
-        // 敵を生成
-        SpawnEnemies();
     }
 
     /// <summary>
@@ -169,9 +164,10 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-        if (grid[x, y].tileType == TileType.OBSTACLE || grid[x, y].tileType == TileType.WALL)
+        if (grid[x, y].tileType == TileType.OBSTACLE || grid[x, y].tileType == TileType.WALL ||
+            grid[x, y].tileType == TileType.TREASURE || grid[x, y].tileType == TileType.ENEMY_SPAWN)
         {
-            // 障害物や壁の上には置けない
+            // 障害物や壁、宝、敵生成ポイントの上には置けない
             return false;
         }
 
@@ -201,24 +197,6 @@ public class GridManager : MonoBehaviour
         var piece = Instantiate(piecePrefab, pieceParent);
         piece.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
         grid[x, y].isOccupied = true;
-    }
-
-    /// <summary>
-    /// 敵を描画
-    /// </summary>
-    void SpawnEnemies()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (grid[x, y].tileType == TileType.ENEMY_SPAWN)
-                {
-                    var enemy = Instantiate(enemyPrefab, enemyParent);
-                    enemy.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
-                }
-            }
-        }
     }
 
     /// <summary>
@@ -328,11 +306,11 @@ public class GridManager : MonoBehaviour
         List<Vector2Int> neighbors = new List<Vector2Int>();
 
         Vector2Int[] directions = {
+        new Vector2Int(1, 0),   // 右
+        new Vector2Int(-1, 0),  // 左
         new Vector2Int(0, 1),   // 上
         new Vector2Int(0, -1),  // 下
-        new Vector2Int(1, 0),   // 右
-        new Vector2Int(-1, 0)   // 左
-    };
+        };
 
         foreach (var dir in directions)
         {
@@ -346,13 +324,26 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 位置がグリッド内かどうかを判定するメソッド
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsPositionValid(Vector2Int position)
+    {
+        // 位置がグリッドの範囲内に収まっているか確認
+        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+    }
+
+    /// <summary>
     /// マスが障害物かどうか判定.
     /// </summary>
     /// <param name="position">位置</param>
     /// <returns>障害物かどうか</returns>
     public bool IsObstacle(Vector2Int position)
     {
-        return grid[position.x, position.y].tileType == TileType.OBSTACLE;
+        return grid[position.x, position.y].tileType == TileType.OBSTACLE      ||
+               grid[position.x, position.y].tileType == TileType.RIDE_OBSTACLE ||
+               grid[position.x, position.y].tileType == TileType.WALL;
     }
 
     /// <summary>

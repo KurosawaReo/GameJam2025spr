@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8dae56f7c44ebd48bce04c2cb71a5d1, type: 3}
-  m_Name: Enemy-0001
+  m_Script: {fileID: 11500000, guid: b89d5e29130002242bb291c622214c25, type: 3}
+  m_Name: Piece-0004
   m_EditorClassIdentifier: 
-  entityId: Enemy-0001
-  entityName: Enemy0001
-  job: {fileID: 11400000, guid: d60962a1149841040bde816a177540b7, type: 2}
+  entityId: Piece-0004
+  entityName: Piece0004
+  job: {fileID: 11400000, guid: 8baeb0de12ede3e4bae14e54f0a5f043, type: 2}
   entityAddres: 0000000000000000
