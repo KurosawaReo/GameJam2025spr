@@ -52,21 +52,17 @@ public class DragUIManager : MonoBehaviour
     void Update()
     {
         //操作objがある間(=マウスクリック中)
-        if(nowActionObj != null)
+        if (nowActionObj != null)
         {
-
-#if true
             nowActionObj.transform.position = Gl_Func.GetMousePos();    //マウス座標.
-#else
-            var mPos           = Gl_Func.GetMousePos();    //マウス座標取得.
-            var (bPosX, bPosY) = Gl_Func.WPosToBPos(mPos); //ボード座標に変換.
-            //ボード座標を元に設置.
-            Gl_Func.PlaceInBPos(nowActionObj, bPosX, bPosY);
-#endif
 
             //マウスボタンを離した瞬間.
             if (Input.GetMouseButtonUp(0))
             {
+                var mPos = Gl_Func.GetMousePos();           //マウス座標取得.
+                var bPos = Gl_Func.WPosToBPos(mPos);        //ボード座標に変換.
+                Gl_Func.ObjPlaceOnBPos(nowActionObj, bPos); //ボード座標を元に設置.
+
                 nowActionObj = null; //もう操作しないためobjデータを破棄.
             }
         }

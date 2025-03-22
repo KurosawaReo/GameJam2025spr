@@ -1,3 +1,9 @@
+/*
+   - GridManager.cs -
+
+   伊野原先輩作.
+   盤面の縦横グリッド数は可変値っぽいため、ここから取得する.
+*/
 using Gloval;
 using UnityEngine;
 using System.IO;
@@ -10,7 +16,7 @@ public class GridManager : MonoBehaviour
 
     [Tooltip("盤面の縦の個数")]
     public int height = 10;
-    
+
     [Tooltip("盤面のプレハブをセット")]
     [SerializeField] GameObject gridPrefab;
 
@@ -124,12 +130,12 @@ public class GridManager : MonoBehaviour
                 //    var obj = Instantiate(gridPrefab, new Vector3(x, 0, y), Quaternion.identity);
                 //    obj.GetComponent<Image>().sprite = sprite;
                 //}
-
+                
                 // 生成
                 var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
+                obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
             }
         }
     }
@@ -199,7 +205,7 @@ public class GridManager : MonoBehaviour
         }
 
         var piece = Instantiate(piecePrefab, pieceParent);
-        piece.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+        piece.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
         grid[x, y].isOccupied = true;
     }
 
@@ -215,7 +221,7 @@ public class GridManager : MonoBehaviour
                 if (grid[x, y].tileType == TileType.ENEMY_SPAWN)
                 {
                     var enemy = Instantiate(enemyPrefab, enemyParent);
-                    enemy.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
                 }
             }
         }

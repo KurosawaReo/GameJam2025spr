@@ -1,3 +1,17 @@
+#if false
+/*
+    元々使ってた定数.
+
+    //マス数.
+    public const int   BOARD_GRID_HEI  = 10;   //縦マス数.
+    public const int   BOARD_GRID_WID  = 10;   //横マス数.
+
+    //位置調整.
+    public const float BOARD_LEFT_UP_X = -4f;  //盤面の左上基準点x.
+    public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
+    public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -225,3 +239,4 @@ public class BoardManager : MonoBehaviour
         }
     }
 }
+#endif

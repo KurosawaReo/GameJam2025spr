@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e3e5a4fd7c34c42a5df6ce2e5d88c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scptDragUI: {fileID: 1007660126}
+  scptDragUI: {fileID: 1007660128}
   action: 1
 --- !u!114 &482274459
 MonoBehaviour:
@@ -393,7 +393,7 @@ Transform:
   m_LocalScale: {x: 108, y: 108, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 902415807}
+  m_Father: {fileID: 1842330180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &747416567
 GameObject:
@@ -428,42 +428,6 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -458.99997, y: -458.99994}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &902415806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 902415807}
-  m_Layer: 5
-  m_Name: GameObjects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &902415807
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902415806}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00925926, y: 0.00925926, z: 0.00925926}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 550643688}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &969235094
@@ -550,15 +514,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1007660127}
-  - component: {fileID: 1007660126}
+  - component: {fileID: 1007660128}
   m_Layer: 0
-  m_Name: DragUI
+  m_Name: DragUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1007660126
+--- !u!4 &1007660127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007660125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.012773721, y: -1.189664, z: 0.014649491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1007660128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -575,21 +554,6 @@ MonoBehaviour:
     m_test02: {fileID: 695272532121394137, guid: ffea6f678b4782044b26345ef4c95477, type: 3}
     m_test03: {fileID: 695272532121394137, guid: b4351708934f05e43abf2c9ec356ba3d, type: 3}
     m_inObj: {fileID: 550643687}
---- !u!4 &1007660127
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007660125}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.012773721, y: -1.189664, z: 0.014649491}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1095390680
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e3e5a4fd7c34c42a5df6ce2e5d88c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scptDragUI: {fileID: 1007660126}
+  scptDragUI: {fileID: 1007660128}
   action: 2
 --- !u!114 &1477454293
 MonoBehaviour:
@@ -911,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e3e5a4fd7c34c42a5df6ce2e5d88c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scptDragUI: {fileID: 1007660126}
+  scptDragUI: {fileID: 1007660128}
   action: 0
 --- !u!114 &1569904153
 MonoBehaviour:
@@ -1249,8 +1213,9 @@ RectTransform:
   m_Children:
   - {fileID: 969235095}
   - {fileID: 1765032002}
-  - {fileID: 747416568}
   - {fileID: 1670600784}
+  - {fileID: 747416568}
+  - {fileID: 550643688}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1369,8 +1334,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 360439153}
   - {fileID: 1842330180}
-  - {fileID: 902415807}
   - {fileID: 1898466215}
-  - {fileID: 1116781583}
   - {fileID: 1095390683}
+  - {fileID: 1116781583}
   - {fileID: 1007660127}

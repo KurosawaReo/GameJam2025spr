@@ -54,31 +54,22 @@ namespace Gloval
     /// </summary>
     public static class Gl_Const
     {
-        public const int ENTITY_ADDRES_NUM = 2;     // エンティティの現在地管理用配列のサイズ
-        public const int CELL_SIZE = 100;           // 1マスの大きさ
+        public const  int    BOARD_CELL_SIZE = 100;     // 盤面の1マスのサイズ.
+        public const  float  BOARD_DIS_ADD_X = 0.55f;  // 盤面に表示するobjをどれだけずらすか.
+        public const  float  BOARD_DIS_ADD_Y = 0.72f;  // 盤面の1マスのサイズ.
 
-        public const string IMAGES_PATH = "Images/";    // Imagesフォルダのパス
-        public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス
+        public const  int    ENTITY_ADDRES_NUM = 2;     // エンティティの現在地管理用配列のサイズ.
+
+        public const  string IMAGES_PATH = "Images/";   // Imagesフォルダのパス.
+        public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス.
         {
-            IMAGES_PATH + "Empty",          // 空
-            IMAGES_PATH + "Obstacle",       // 障害物
-            IMAGES_PATH + "RideObstacle",   // 障害物
-            IMAGES_PATH + "Wall",           // 壁
-            IMAGES_PATH + "Treasure",       // 宝
-            IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント
+            IMAGES_PATH + "Empty",          // 空.
+            IMAGES_PATH + "Obstacle",       // 障害物.
+            IMAGES_PATH + "RideObstacle",   // 障害物.
+            IMAGES_PATH + "Wall",           // 壁.
+            IMAGES_PATH + "Treasure",       // 宝.
+            IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
         };
-
-        //-------------------------------------------
-        //[board]シーン.
-        //マス数.
-        public const int   BOARD_GRID_HEI  = 10;   //縦マス数.
-        public const int   BOARD_GRID_WID  = 10;   //横マス数.
-
-        //位置調整.
-        public const float BOARD_LEFT_UP_X = -4f;  //盤面の左上基準点x.
-        public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
-        public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
-        //-------------------------------------------
     }
 
     /// <summary>
@@ -90,30 +81,57 @@ namespace Gloval
         /// ボード座標を元に配置.
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_x">board上の座標x</param>
-        /// <param name="_y">board上の座標y</param>
-        public static void PlaceInBPos(GameObject _obj, int _x, int _y)
+        /// <param name="_bPos">ボード座標</param>
+        public static void ObjPlaceOnBPos(GameObject _obj, Vector2 _bPos)
         {
-            //グリッドのサイズ.
-            float size = Gl_Const.BOARD_GRID_SIZE;
             //基準点+ずらす量.
-            float setX = Gl_Const.BOARD_LEFT_UP_X + _x * size;
-            float setY = Gl_Const.BOARD_LEFT_UP_Y - _y * size;
+            Vector2 lPos = _bPos * Gl_Const.BOARD_CELL_SIZE;
+
+            //"Canvas"基準からワールド座標に戻す.
+            Vector2 wPos = LPosToWPos(GameObject.Find("Canvas"), lPos);
             //配置.
-            _obj.transform.localPosition = new Vector2(setX, setY);
+            _obj.transform.position = wPos - new Vector2(Gl_Const.BOARD_DIS_ADD_X, Gl_Const.BOARD_DIS_ADD_Y);
         }
 
         /// <summary>
         /// ワールド座標をボード座標に変換.
         /// </summary>
-        /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_x">ワールド座標</param>
-        public static (int x, int y) WPosToBPos(Vector2 _wPos)
+        /// <param name="_wPos">ワールド座標</param>
+        /// <returns>ボード座標</returns>
+        public static Vector2 WPosToBPos(Vector2 _wPos)
         {
-            int x = (int)(_wPos.x / Gl_Const.BOARD_GRID_SIZE);
-            int y = (int)(_wPos.y / Gl_Const.BOARD_GRID_SIZE);
+            _wPos += new Vector2(Gl_Const.BOARD_DIS_ADD_X, Gl_Const.BOARD_DIS_ADD_Y);
+            
+            //"Canvas"基準のローカル座標に変換.
+            Vector2 lPos = WPosToLPos(GameObject.Find("Canvas"), _wPos);
 
-            return (x, y);
+            //board座標上でどこに位置するかを計算.
+            int bPosX = (int)Mathf.Round(lPos.x / Gl_Const.BOARD_CELL_SIZE);
+            int bPosY = (int)Mathf.Round(lPos.y / Gl_Const.BOARD_CELL_SIZE);
+
+            return new Vector2(bPosX, bPosY);
+        }
+
+        /// <summary>
+        /// ローカル座標をワールド座標に変換.
+        /// </summary>
+        /// <param name="_obj">親オブジェクト</param>
+        /// <param name="_lPos">ローカル座標</param>
+        /// <returns>ワールド座標</returns>
+        public static Vector2 LPosToWPos(GameObject _obj, Vector2 _lPos)
+        {
+            var wPos = _obj.transform.TransformPoint(_lPos);
+            return wPos;
+        }
+        /// <summary>
+        /// ワールド座標をローカル座標に変換.
+        /// </summary>
+        /// <param name="_wPos">ワールド座標</param>
+        /// <returns>ローカル座標</returns>
+        public static Vector2 WPosToLPos(GameObject _obj, Vector2 _wPos)
+        {
+            var lPos = _obj.transform.InverseTransformPoint(_wPos);
+            return lPos;
         }
 
         /// <summary>
