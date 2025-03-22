@@ -149,7 +149,7 @@ public class GridManager : MonoBehaviour
                 //var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                //obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
+                //obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE,y * Gl_Const.BOARD_CELL_SIZE);
             }
         }
     }
@@ -224,6 +224,7 @@ public class GridManager : MonoBehaviour
         grid[x, y].isOccupied = true;
     }
 
+#if false
     /// <summary>
     /// 敵を描画
     /// </summary>
@@ -241,6 +242,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+#endif
 
     /// <summary>
     /// 拡張エディター用.

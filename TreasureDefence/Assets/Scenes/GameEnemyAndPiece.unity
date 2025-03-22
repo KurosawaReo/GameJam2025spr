@@ -656,8 +656,6 @@ MonoBehaviour:
   height: 10
   gridPrefab: {fileID: 3233636529629334063, guid: aaca164244811bb47a4540dcb2e1e709, type: 3}
   gridParent: {fileID: 1765032002}
-  enemyPrefab: {fileID: 3233636529629334063, guid: 0f796f2ff5f47124dab785e392f64f4c, type: 3}
-  enemyParent: {fileID: 747416568}
   piecePrefab: {fileID: 3233636529629334063, guid: 66ba8048a3d312545b1d6e4f4f171562, type: 3}
   pieceParent: {fileID: 1670600784}
 --- !u!4 &1116781583

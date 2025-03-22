@@ -85,6 +85,7 @@ public class DragUIManager : MonoBehaviour
                     }
                     else
                     {
+                        //TODO:アニメーション入れる.<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                         Destroy(nowActionObj);
                     }
                 }

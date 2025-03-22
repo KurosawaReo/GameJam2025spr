@@ -91,8 +91,8 @@ namespace Gloval
             Vector2 bPos;
 
             //位置調整.
-            bPos.x = ( _x-4) * Gl_Const.BOARD_CELL_SIZE;
-            bPos.y = (-_y+5) * Gl_Const.BOARD_CELL_SIZE;
+            bPos.x = (_x-4) * Gl_Const.BOARD_CELL_SIZE;
+            bPos.y = (_y-4) * Gl_Const.BOARD_CELL_SIZE;
             //"Canvas"基準からワールド座標に戻す.
             Vector2 wPos = LPosToWPos(GameObject.Find("Canvas"), bPos);
             
@@ -117,7 +117,7 @@ namespace Gloval
             int bPosY = (int)Mathf.Round(lPos.y / Gl_Const.BOARD_CELL_SIZE);
 
             //左上のマスが(0, 0)となるようにして返す.
-            return (bPosX+4, -bPosY+5);
+            return (bPosX+4, bPosY+4);
         }
 
         /// <summary>
