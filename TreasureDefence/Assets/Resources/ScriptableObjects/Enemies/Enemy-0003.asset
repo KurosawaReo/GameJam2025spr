@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8dae56f7c44ebd48bce04c2cb71a5d1, type: 3}
   m_Name: Enemy-0003
   m_EditorClassIdentifier: 
-  entityId: Enemy-0001
-  entityName: Enemy0001
-  job: {fileID: 11400000, guid: d60962a1149841040bde816a177540b7, type: 2}
+  entityId: Enemy-0003
+  entityName: Enemy0003
+  job: {fileID: 11400000, guid: 0f9c03f1fb239e147a0b025d520ebf47, type: 2}
+  sprite: {fileID: 21300000, guid: df0e0a197336ed143a1095e2c7742efa, type: 3}
   entityAddres: 0000000000000000

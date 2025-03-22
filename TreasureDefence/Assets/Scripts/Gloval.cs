@@ -80,6 +80,8 @@ namespace Gloval
         public const float BOARD_LEFT_UP_X = -4f;  //盤面の左上基準点x.
         public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
         public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
+
+        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
     }
 
     /// <summary>

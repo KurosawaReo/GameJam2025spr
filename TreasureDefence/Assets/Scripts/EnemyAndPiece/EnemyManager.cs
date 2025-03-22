@@ -17,14 +17,16 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("グリッドマネージャーをセット")]
     public GridManager gridManager;
 
+    [Tooltip("リキャストタイム")]
+    float recastTime;
+
     // Start is called before the first frame update
     void Start()
     {
         // 初期化処理
         Init();
 
-        // 敵を生成
-        SpawnEnemies();
+        StartCoroutine(SpawnEnemies());
     }
 
     // Update is called once per frame
@@ -39,6 +41,7 @@ public class EnemyManager : MonoBehaviour
     void Init()
     {
         gridManager = FindObjectOfType<GridManager>();
+        recastTime = Gl_Const.ENEMY_DEFAULT_RECAST_TIME;
     }
 
     /// <summary>
@@ -53,18 +56,28 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// 敵を描画
     /// </summary>
-    void SpawnEnemies()
+    IEnumerator SpawnEnemies()
     {
-        for (int x = 0; x < 10; x++)
+        // todo Enemyを抽選する
+        // todo 抽選結果の敵のScrptableObjectを取得or使用して敵の画像を変更する
+        // todo できれば各敵スポーンのところからランダムな時間で敵が出てくるようにする
+
+        for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
         {
-            for (int y = 0; y < 10; y++)
+            for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)
             {
                 if (gridManager.grid[x, y].tileType == TileType.ENEMY_SPAWN)
                 {
                     var enemy = Instantiate(enemyPrefab, enemyParent);
                     enemy.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    AddEnemy(enemy.GetComponent<Enemy>());
                 }
             }
         }
+
+        yield return new WaitForSeconds(recastTime);
+        // 生成時間をだんだん短くする
+        recastTime -= 0.01f;
+        StartCoroutine(SpawnEnemies());
     }
 }

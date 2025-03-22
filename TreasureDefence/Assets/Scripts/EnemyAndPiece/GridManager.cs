@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class GridManager : MonoBehaviour
     [Tooltip("ノードリスト")]
     List<Node> nodes = new List<Node>();
 
-    void Start()
+    private void Awake()
     {
         // 盤面情報を読み込む
         LoadGrid();
@@ -44,6 +45,11 @@ public class GridManager : MonoBehaviour
 
         // 盤面を生成
         GenerateGridObjects();
+    }
+
+    void Start()
+    {
+        
     }
 
     /// <summary>
@@ -113,18 +119,24 @@ public class GridManager : MonoBehaviour
             {
                 // todo 画像を変更できるようにする
 
-                //var sprite = GetPrefab(grid[x, y].tileType);
-                //if (sprite != null)
-                //{
-                //    var obj = Instantiate(gridPrefab, new Vector3(x, 0, y), Quaternion.identity);
-                //    obj.GetComponent<Image>().sprite = sprite;
-                //}
+                var sprite = GetPrefab(grid[x, y].tileType);
+                if (sprite != null)
+                {
+                    // 生成
+                    var obj = Instantiate(gridPrefab, gridParent);
+                    
+                    // 位置を移動
+                    obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    
+                    // 画像を変更
+                    obj.GetComponent<Image>().sprite = sprite;
+                }
 
                 // 生成
-                var obj = Instantiate(gridPrefab, gridParent);
+                //var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
+                //obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
             }
         }
     }
