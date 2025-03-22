@@ -116,7 +116,7 @@ namespace Gloval
             int bPosX = (int)Mathf.Round(lPos.x / Gl_Const.BOARD_CELL_SIZE);
             int bPosY = (int)Mathf.Round(lPos.y / Gl_Const.BOARD_CELL_SIZE);
 
-            //左上のマスが(0, 0)となるようにして返す.
+            //左下のマスが(0, 0)となるようにして返す.
             return (bPosX+4, bPosY+4);
         }
 
