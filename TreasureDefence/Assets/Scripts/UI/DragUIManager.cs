@@ -20,22 +20,18 @@ public class UIPrefab
     public GameObject test01 
     {
         get => m_test01;
-        set => m_test01 = value; 
     }
     public GameObject test02
     {
         get => m_test02;
-        set => m_test02 = value;
     }
     public GameObject test03
     {
         get => m_test03;
-        set => m_test03 = value;
     }
     public GameObject inObj
     {
         get => m_inObj;
-        set => m_inObj = value;
     }
 }
 
@@ -55,17 +51,14 @@ public class UIAnim
     public GameObject batu
     {
         get => m_batu;
-        set => m_batu = value;
     }
     public GameObject circle
     {
         get => m_circle;
-        set => m_circle = value;
     }
     public GameObject inObj
     {
         get => m_inObj;
-        set => m_inObj = value;
     }
 }
 

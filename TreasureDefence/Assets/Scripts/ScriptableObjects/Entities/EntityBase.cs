@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ‹î‚ÌŠî’êƒNƒ‰ƒX(–¡•û, “G–â‚í‚¸)
+/// </summary>
 public abstract class EntityBase : ScriptableObject
 {
     [Header("Šî–{î•ñŒn")]

@@ -23,8 +23,9 @@ namespace Gloval
     /// </summary>
     public enum Phase
     {
-        PREPARA, //preparation = 練習.
-        DEFENSE, //defense = 防御.
+        READY,   //練習フェーズ.
+        DEFENSE, //防御フェーズ.
+        RESULT,  //終了フェーズ.
     }
 
     /// <summary>
@@ -54,11 +55,14 @@ namespace Gloval
     /// </summary>
     public static class Gl_Const
     {
-        public const  int    BOARD_CELL_SIZE = 100;     // 盤面の1マスのサイズ.
-        public const  float  BOARD_DIS_ADD_X = 0.55f;   // 盤面にobjを配置した時のずらす量x.
-        public const  float  BOARD_DIS_ADD_Y = 0.72f;   // 盤面にobjを配置した時のずらす量y.
+        public const int   BOARD_CELL_SIZE = 100;           // 盤面の1マスのサイズ.
+        public const float BOARD_DIS_ADD_X = 0.55f;         // 盤面にobjを配置した時のずらす量x.
+        public const float BOARD_DIS_ADD_Y = 0.72f;         // 盤面にobjを配置した時のずらす量y.
 
-        public const  int    ENTITY_ADDRES_NUM = 2;     // エンティティの現在地管理用配列のサイズ.
+        public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.
+        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
+
+        public const float READY_PHASE_TIME = 1;            // 準備フェーズの期間.
 
         public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
         public const string RESOURCES_PATH = "Resources/";
@@ -72,8 +76,6 @@ namespace Gloval
             IMAGES_PATH + "Treasure",       // 宝.
             IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
         };
-
-        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
     }
 
     /// <summary>
@@ -162,9 +164,9 @@ namespace Gloval
     [Serializable]
     public class GridCell
     {
-        public TileType     tileType;     // タイルタイプ
-        public bool         isOccupied;   // 駒が置いてあるかどうか
-        public EntityBase   entity;       // エンティティの実体をセット
+        public TileType    tileType;    // タイルタイプ(地形や宝)
+        public bool        isOccupied;  // 駒が置いてあるかどうか
+        public EntityBase  entity;      // 駒(味方, 敵)の実体を入れる
 
         /// <summary>
         /// コンストラクタ
