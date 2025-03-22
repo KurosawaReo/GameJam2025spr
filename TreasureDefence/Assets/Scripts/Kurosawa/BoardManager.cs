@@ -16,8 +16,8 @@ public class Piece
     //get, set.
     public string id
     {
-        get { return m_id; }
-        set { m_id = value; }
+        get => m_id;
+        set => m_id = value;
     }
 }
 
@@ -40,18 +40,18 @@ public class BoardData
     //get, set.
     public TileType terrain 
     {
-        get { return m_terrain; }
-        set { m_terrain = value; } 
+        get => m_terrain;
+        set => m_terrain = value; 
     }
     public Piece plyPiece
     {
-        get { return m_plyPiece; }
-        set { m_plyPiece = value; }
+        get => m_plyPiece;
+        set => m_plyPiece = value;
     }
     public Piece enmPiece
     {
-        get { return m_enmPiece; }
-        set { m_enmPiece = value; }
+        get => m_enmPiece;
+        set => m_enmPiece = value;
     }
 }
 
@@ -62,44 +62,44 @@ public class BoardData
 public class BoardPrefab
 {
     //private•Ï”.
-    [SerializeField] private GameObject m_ground;
-    [SerializeField] private GameObject m_wall;
-    [SerializeField] private GameObject m_obstacle;
-    [SerializeField] private GameObject m_enemySpawn;
-    [SerializeField] private GameObject m_treasure;
+    [SerializeField] GameObject m_ground;
+    [SerializeField] GameObject m_wall;
+    [SerializeField] GameObject m_obstacle;
+    [SerializeField] GameObject m_enemySpawn;
+    [SerializeField] GameObject m_treasure;
     [Space]
-    [SerializeField] private GameObject m_inObj;
+    [SerializeField] GameObject m_inObj;
 
     //get, set.
     public GameObject ground 
     { 
-        get { return m_ground; }
-        set { m_ground = value; } 
+        get => m_ground;
+        set => m_ground = value; 
     }
     public GameObject wall
     {
-        get { return m_wall; }
-        set { m_wall = value; }
+        get => m_wall;
+        set => m_wall = value;
     }
     public GameObject obstacle
     {
-        get { return m_obstacle; }
-        set { m_obstacle = value; }
+        get => m_obstacle;
+        set => m_obstacle = value;
     }
     public GameObject enemySpawn
     {
-        get { return m_enemySpawn; }
-        set { m_enemySpawn = value; }
+        get => m_enemySpawn;
+        set => m_enemySpawn = value;
     }
     public GameObject treasure
     {
-        get { return m_treasure; }
-        set { m_treasure = value; }
+        get => m_treasure;
+        set => m_treasure = value;
     }
     public GameObject inObj
     {
-        get { return m_inObj; }
-        set { m_inObj = value; }
+        get => m_inObj;
+        set => m_inObj = value;
     }
 }
 
@@ -195,7 +195,7 @@ public class BoardManager : MonoBehaviour
                 //”z’u.
                 if (obj != null)
                 {
-                    Gl_Func.ObjectSetBoard(obj, x+debugX, y+debugY);
+                    Gl_Func.PlaceInBPos(obj, x+debugX, y+debugY);
                     //Gl_Func.ObjectSetBoard(obj, x, y);
                 }
             }

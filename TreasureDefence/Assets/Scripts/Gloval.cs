@@ -40,6 +40,15 @@ namespace Gloval
         ENEMY_SPAWN     // 敵の生成ポイント
     }
 
+    public enum PlyAction
+    { 
+        TEST01,
+        TEST02,
+        TEST03,
+
+        NONE,   //操作なし.
+    }
+
     /// <summary>
     /// グローバル定数.
     /// </summary>
@@ -78,12 +87,12 @@ namespace Gloval
     public static class Gl_Func
     {
         /// <summary>
-        /// ボード座標を元にunity上に配置する.
+        /// ボード座標を元に配置.
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_x">盤面座標のx</param>
-        /// <param name="_y">盤面座標のy</param>
-        public static void ObjectSetBoard(GameObject _obj, int _x, int _y)
+        /// <param name="_x">board上の座標x</param>
+        /// <param name="_y">board上の座標y</param>
+        public static void PlaceInBPos(GameObject _obj, int _x, int _y)
         {
             //グリッドのサイズ.
             float size = Gl_Const.BOARD_GRID_SIZE;
@@ -92,7 +101,30 @@ namespace Gloval
             float setY = Gl_Const.BOARD_LEFT_UP_Y - _y * size;
             //配置.
             _obj.transform.localPosition = new Vector2(setX, setY);
-            _obj.transform.localScale    = new Vector2(size, size);
+        }
+
+        /// <summary>
+        /// ワールド座標をボード座標に変換.
+        /// </summary>
+        /// <param name="_obj">配置するオブジェクト</param>
+        /// <param name="_x">ワールド座標</param>
+        public static (int x, int y) WPosToBPos(Vector2 _wPos)
+        {
+            int x = (int)(_wPos.x / Gl_Const.BOARD_GRID_SIZE);
+            int y = (int)(_wPos.y / Gl_Const.BOARD_GRID_SIZE);
+
+            return (x, y);
+        }
+
+        /// <summary>
+        /// マウス座標取得.
+        /// </summary>
+        public static Vector2 GetMousePos()
+        {
+            Vector2 mPos = Input.mousePosition;
+            Vector2 wPos = Camera.main.ScreenToWorldPoint(mPos);
+
+            return wPos;
         }
     }
 
