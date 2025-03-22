@@ -124,7 +124,7 @@ public class GridManager : MonoBehaviour
                     var obj = Instantiate(gridPrefab, gridParent);
                     
                     // à íuÇà⁄ìÆ
-                    obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
                     
                     // âÊëúÇïœçX
                     obj.GetComponent<Image>().sprite = sprite;
@@ -205,7 +205,7 @@ public class GridManager : MonoBehaviour
         }
 
         var piece = Instantiate(piecePrefab, pieceParent);
-        piece.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+        piece.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
         grid[x, y].isOccupied = true;
     }
 

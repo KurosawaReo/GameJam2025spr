@@ -58,6 +58,8 @@ namespace Gloval
         public const int   BOARD_CELL_SIZE = 100;           // 盤面の1マスのサイズ.
         public const float BOARD_DIS_ADD_X = 0.55f;         // 盤面にobjを配置した時のずらす量x.
         public const float BOARD_DIS_ADD_Y = 0.72f;         // 盤面にobjを配置した時のずらす量y.
+        public const int   BOARD_GRID_WID  = 10;            // 盤面の横のマスの個数
+        public const int   BOARD_GRID_HEI  = 10;            // 盤面の縦のマスの個数
 
         public const float ENEMY_DEFAULT_RECAST_TIME = 10;   // デフォルトの敵生成のリキャストタイム
         public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.

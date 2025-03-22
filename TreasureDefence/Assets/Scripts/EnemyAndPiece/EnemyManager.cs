@@ -92,7 +92,7 @@ public class EnemyManager : MonoBehaviour
                     var enemy = Instantiate(enemyPrefab, enemyParent);
 
                     // ‰ŠúÀ•W‚ğ’²®
-                    enemy.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
 
                     // “G‚Ì‰æ‘œ‚ğ•ÏX
                     enemy.GetComponent<Image>().sprite = enemyDatas[enemyIndex].sprite;
