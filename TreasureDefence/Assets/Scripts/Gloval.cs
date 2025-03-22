@@ -17,6 +17,7 @@ namespace Gloval
         NORMAL,
         HARD,
     }
+
     /// <summary>
     /// ゲームのフェーズ.
     /// </summary>
@@ -25,18 +26,6 @@ namespace Gloval
         PREPARA, //preparation = 練習.
         DEFENSE, //defense = 防御.
     }
-    /// <summary>
-    /// 地形や宝.
-    /// </summary>
-    public enum TerrainType
-    {
-        NONE,       //なし.
-        WALL,       //壁.
-        OBSTACLES,  //障害物.
-        ENEMY_GATE, //敵入り口.
-        TREASURE,   //宝.
-    }
-
 
     /// <summary>
     /// タイルのタイプ.
@@ -70,14 +59,17 @@ namespace Gloval
             IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント
         };
 
-        //[盤面]マス数.
+        //-------------------------------------------
+        //[board]シーン.
+        //マス数.
         public const int   BOARD_GRID_HEI  = 10;   //縦マス数.
         public const int   BOARD_GRID_WID  = 10;   //横マス数.
 
-        //[盤面]位置調整.
+        //位置調整.
         public const float BOARD_LEFT_UP_X = -4f;  //盤面の左上基準点x.
         public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
         public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
+        //-------------------------------------------
     }
 
     /// <summary>

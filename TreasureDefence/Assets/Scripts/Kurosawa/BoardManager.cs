@@ -27,18 +27,18 @@ public class Piece
 public class BoardData
 {
     //private変数.
-    private TerrainType m_terrain;
+    private TileType m_terrain;
     private Piece m_plyPiece;
     private Piece m_enmPiece;
 
     //初期化(コンストラクタ)
-    public BoardData(TerrainType _terrain)
+    public BoardData(TileType _terrain)
     {
         m_terrain = _terrain;
     }
 
     //get, set.
-    public TerrainType terrain 
+    public TileType terrain 
     {
         get { return m_terrain; }
         set { m_terrain = value; } 
@@ -64,8 +64,8 @@ public class BoardPrefab
     //private変数.
     [SerializeField] private GameObject m_ground;
     [SerializeField] private GameObject m_wall;
-    [SerializeField] private GameObject m_obstacles;
-    [SerializeField] private GameObject m_enemyGate;
+    [SerializeField] private GameObject m_obstacle;
+    [SerializeField] private GameObject m_enemySpawn;
     [SerializeField] private GameObject m_treasure;
     [Space]
     [SerializeField] private GameObject m_inObj;
@@ -81,15 +81,15 @@ public class BoardPrefab
         get { return m_wall; }
         set { m_wall = value; }
     }
-    public GameObject obstacles
+    public GameObject obstacle
     {
-        get { return m_obstacles; }
-        set { m_obstacles = value; }
+        get { return m_obstacle; }
+        set { m_obstacle = value; }
     }
-    public GameObject enemyGate
+    public GameObject enemySpawn
     {
-        get { return m_enemyGate; }
-        set { m_enemyGate = value; }
+        get { return m_enemySpawn; }
+        set { m_enemySpawn = value; }
     }
     public GameObject treasure
     {
@@ -140,21 +140,21 @@ public class BoardManager : MonoBehaviour
             for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++) {
 
                 //マスの初期化.
-                board[x, y] = new BoardData(TerrainType.NONE);
+                board[x, y] = new BoardData(TileType.EMPTY);
 
                 //周り一周は壁にする.
                 if (x == 0 || x == Gl_Const.BOARD_GRID_WID-1 ||
                     y == 0 || y == Gl_Const.BOARD_GRID_HEI-1 )
                 {
-                    board[x, y].terrain = TerrainType.WALL;
+                    board[x, y].terrain = TileType.WALL;
                 }
             }
         }
 
         //test.
-        board[1, 1].terrain = TerrainType.OBSTACLES;
-        board[2, 1].terrain = TerrainType.ENEMY_GATE;
-        board[3, 1].terrain = TerrainType.TREASURE;
+        board[1, 1].terrain = TileType.OBSTACLE;
+        board[2, 1].terrain = TileType.ENEMY_SPAWN;
+        board[3, 1].terrain = TileType.TREASURE;
     }
 
     /// <summary>
@@ -173,18 +173,18 @@ public class BoardManager : MonoBehaviour
                 //地形別.
                 switch (board[x, y].terrain)
                 {
-                    case TerrainType.NONE:
+                    case TileType.EMPTY:
                         break;
-                    case TerrainType.WALL:
+                    case TileType.WALL:
                         obj = Instantiate(prfb.wall, prfb.inObj.transform);
                         break;
-                    case TerrainType.OBSTACLES:
-                        obj = Instantiate(prfb.obstacles, prfb.inObj.transform);
+                    case TileType.OBSTACLE:
+                        obj = Instantiate(prfb.obstacle, prfb.inObj.transform);
                         break;
-                    case TerrainType.ENEMY_GATE:
-                        obj = Instantiate(prfb.enemyGate, prfb.inObj.transform);
+                    case TileType.ENEMY_SPAWN:
+                        obj = Instantiate(prfb.enemySpawn, prfb.inObj.transform);
                         break;
-                    case TerrainType.TREASURE:
+                    case TileType.TREASURE:
                         obj = Instantiate(prfb.treasure, prfb.inObj.transform);
                         break;
 

@@ -155,8 +155,8 @@ MonoBehaviour:
   prfb:
     m_ground: {fileID: 695272532121394137, guid: c16b8c53aa7b114439475329c7a33a04, type: 3}
     m_wall: {fileID: 695272532121394137, guid: 161863292aeed4445a0f39afc4a60c18, type: 3}
-    m_obstacles: {fileID: 695272532121394137, guid: 2eef237faa7b24048b5440c5938ea2c5, type: 3}
-    m_enemyGate: {fileID: 695272532121394137, guid: 1dab74e163fffa24c97620e98831d372, type: 3}
+    m_obstacle: {fileID: 695272532121394137, guid: 2eef237faa7b24048b5440c5938ea2c5, type: 3}
+    m_enemySpawn: {fileID: 695272532121394137, guid: 1dab74e163fffa24c97620e98831d372, type: 3}
     m_treasure: {fileID: 695272532121394137, guid: b2dd3ca04cb3b364a94d10154012f805, type: 3}
     m_inObj: {fileID: 1170492709}
   debugX: 0
