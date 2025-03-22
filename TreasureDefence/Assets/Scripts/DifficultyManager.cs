@@ -1,41 +1,66 @@
+using Gloval;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DifficultyManager : MonoBehaviour
 {
-    int num ;
+    static public DifficultyManager/*仮名称*/ instance;
 
-    public enum DifficultyButton
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public enum Difficulty //難易度の列挙体
     {
         Easy,
         Nomal,
         Hard,
     }
 
-    public DifficultyButton buttonType;
+    public Difficulty currentDifficulty;　//現在の難易度
 
-    private void Start()
+    public void OnClickedButtonEasy() //Easyボタン
     {
-        num = 0;
+        setDifficulty(Difficulty.Easy); //難易度をEasyにセット
+    }
+    public void OnClickedButtonNomal() //Nomalボタン
+    {
+        setDifficulty(Difficulty.Nomal); //難易度をNomalにセット
+    }
+    public void OnClickedButtonHard() //Hardボタン
+    {
+        setDifficulty (Difficulty.Hard); //難易度をHardにセット
     }
 
-    // Update is called once per frame
-    void Update()
+    public void setDifficulty(Difficulty difficulty)
     {
-        switch (num)
-        {
-            case 1: SceneManager.LoadScene("EasyGameSene");
-            break;
+        currentDifficulty = difficulty; //選択した難易度に変更
 
-            case 2: SceneManager.LoadScene("NomalGameSene");
-            break;
+        switch (currentDifficulty) {
+            case Difficulty.Easy: //Easyの場合
+                SceneManager.LoadScene("EasyGameScene"); //難易度Easyへ
+                break;
 
-            case 3: SceneManager.LoadScene("HardGameSene");
-            break;
+            case Difficulty.Nomal: //Nomalの場合
+                SceneManager.LoadScene("NomalGameScene"); //難易度Nomalへ
+                break;
+
+            case Difficulty.Hard: //Hardの場合
+                SceneManager.LoadScene("HardGameScene"); //難易度Hardへ
+                break;
         }
     }
 
-    
 }

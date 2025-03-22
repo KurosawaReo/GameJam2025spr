@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    static public TitleManager instance;
+    static public TitleManager/*‰¼–¼Ì*/ instance;
 
     void Awake()
     {
