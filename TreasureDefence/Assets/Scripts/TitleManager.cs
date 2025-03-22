@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
+    public Button Titlebutton;
+
     static public TitleManager/*âºñºèÃ*/ instance;
 
     void Awake()
@@ -27,5 +30,9 @@ public class TitleManager : MonoBehaviour
         {
             SceneManager.LoadScene("Difficulty");
         }
+    }
+    public void OnClickedButtonEasy()
+    {
+        SceneManager.LoadScene("Difficulty");
     }
 }
