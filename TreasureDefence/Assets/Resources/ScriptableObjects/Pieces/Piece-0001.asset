@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityId: Piece-0001
   entityName: Piece0001
+  job: {fileID: 11400000, guid: d60962a1149841040bde816a177540b7, type: 2}
+  sprite: {fileID: 21300000, guid: a7e7e010134ba4042b188b4fbe2fea05, type: 3}
   entityAddres: 0000000000000000
