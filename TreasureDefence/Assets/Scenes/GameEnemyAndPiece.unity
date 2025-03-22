@@ -834,6 +834,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 3233636529629334063, guid: 0f796f2ff5f47124dab785e392f64f4c, type: 3}
   enemyParent: {fileID: 747416568}
+  enemyDatas:
+  - {fileID: 11400000, guid: ba786caaee1bd6247beeed6799f5c11e, type: 2}
+  - {fileID: 11400000, guid: e20b9d5ff9b992d428c9b0b025cd5e74, type: 2}
+  - {fileID: 11400000, guid: 77833f59acf0d754c9644df54f113331, type: 2}
+  - {fileID: 11400000, guid: 2305546eb98333448b172056ffd30450, type: 2}
   gridManager: {fileID: 0}
 --- !u!4 &2127003916
 Transform:

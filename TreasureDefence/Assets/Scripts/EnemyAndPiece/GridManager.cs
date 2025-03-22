@@ -99,7 +99,7 @@ public class GridManager : MonoBehaviour
             {
                 if (grid[x, y].tileType == TileType.TREASURE)
                 {
-                    print($"•ó‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½:{x},{y}");
+                    //print($"•ó‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½:{x},{y}");
                     return new Vector2Int(x, y);
                 }
             }
@@ -117,8 +117,6 @@ public class GridManager : MonoBehaviour
         {
             for (var y = 0; y < height; y++)
             {
-                // todo ‰æ‘œ‚ð•ÏX‚Å‚«‚é‚æ‚¤‚É‚·‚é
-
                 var sprite = GetPrefab(grid[x, y].tileType);
                 if (sprite != null)
                 {

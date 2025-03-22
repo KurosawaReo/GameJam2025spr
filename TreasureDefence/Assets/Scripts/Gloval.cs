@@ -81,7 +81,7 @@ namespace Gloval
         public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
         public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
 
-        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
+        public const float ENEMY_DEFAULT_RECAST_TIME = 10;   // デフォルトの敵生成のリキャストタイム
     }
 
     /// <summary>
