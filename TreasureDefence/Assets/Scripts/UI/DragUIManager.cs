@@ -4,7 +4,7 @@ using UnityEngine;
 using Gloval;
 
 /// <summary>
-/// Boardに使うprefabまとめ.
+/// prefabをまとめたクラス.
 /// </summary>
 [Serializable]
 public class UIPrefab
@@ -40,6 +40,36 @@ public class UIPrefab
 }
 
 /// <summary>
+/// アニメーションをまとめたクラス.
+/// </summary>
+[Serializable]
+public class UIAnim
+{
+    //private変数.
+    [SerializeField] GameObject m_batu;
+    [SerializeField] GameObject m_circle;
+    [Space]
+    [SerializeField] GameObject m_inObj;
+
+    //get, set.
+    public GameObject batu
+    {
+        get => m_batu;
+        set => m_batu = value;
+    }
+    public GameObject circle
+    {
+        get => m_circle;
+        set => m_circle = value;
+    }
+    public GameObject inObj
+    {
+        get => m_inObj;
+        set => m_inObj = value;
+    }
+}
+
+/// <summary>
 /// UIの操作.
 /// </summary>
 public class DragUIManager : MonoBehaviour
@@ -49,6 +79,7 @@ public class DragUIManager : MonoBehaviour
 
     [Header("- prefab -")]
     [SerializeField] UIPrefab prfb;
+    [SerializeField] UIAnim   anim;
 
     GameObject nowActionObj; //現在のアクションのobj.
 
@@ -71,7 +102,9 @@ public class DragUIManager : MonoBehaviour
             //マウスボタンを離した瞬間.
             if (Input.GetMouseButtonUp(0))
             {
-                var (x, y) = Gl_Func.WPosToBPos(mPos); //ボード座標に変換.
+                var (x, y) = Gl_Func.WPosToBoardPos(mPos); //ボード座標に変換.
+
+                bool isSucsess = false;
 
                 //盤面内である場合.
                 if (x >= 0 && x < scptGridMng.width &&
@@ -81,17 +114,25 @@ public class DragUIManager : MonoBehaviour
                     if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
                         scptGridMng.grid[x, y].tileType == TileType.RIDE_OBSTACLE)
                     {
-                        Gl_Func.ObjPlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
+                        Gl_Func.PlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
+                        isSucsess = true;
                     }
-                    else
-                    {
-                        //TODO:アニメーション入れる.<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                        Destroy(nowActionObj);
-                    }
+                }
+
+                //成功したなら.
+                if (isSucsess)
+                {
+                    //成功アニメーション.
+                    var obj = Instantiate(anim.circle, anim.inObj.transform);
+                    Gl_Func.PlaceOnBoard(obj, x, y); //ボード座標を元に設置.
                 }
                 else
                 {
-                    Destroy(nowActionObj);
+                    //失敗アニメーション.
+                    var obj = Instantiate(anim.batu, anim.inObj.transform);
+                    obj.transform.position = mPos;
+
+                    Destroy(nowActionObj); //objは消去する.
                 }
 
                 nowActionObj = null; //もう操作しないためobjデータを破棄.

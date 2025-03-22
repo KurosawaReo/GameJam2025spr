@@ -86,7 +86,7 @@ namespace Gloval
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
         /// <param name="_bPos">ボード座標</param>
-        public static void ObjPlaceOnBoard(GameObject _obj, int _x, int _y)
+        public static void PlaceOnBoard(GameObject _obj, int _x, int _y)
         {
             Vector2 bPos;
 
@@ -105,7 +105,7 @@ namespace Gloval
         /// </summary>
         /// <param name="_wPos">ワールド座標</param>
         /// <returns>ボード座標</returns>
-        public static (int x, int y) WPosToBPos(Vector2 _wPos)
+        public static (int x, int y) WPosToBoardPos(Vector2 _wPos)
         {
             _wPos += new Vector2(Gl_Const.BOARD_DIS_ADD_X, Gl_Const.BOARD_DIS_ADD_Y);
             

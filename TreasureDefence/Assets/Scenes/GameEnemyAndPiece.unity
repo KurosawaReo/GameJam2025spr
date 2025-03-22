@@ -555,6 +555,10 @@ MonoBehaviour:
     m_test02: {fileID: 695272532121394137, guid: ffea6f678b4782044b26345ef4c95477, type: 3}
     m_test03: {fileID: 695272532121394137, guid: b4351708934f05e43abf2c9ec356ba3d, type: 3}
     m_inObj: {fileID: 550643687}
+  anim:
+    m_batu: {fileID: 3386340871486958573, guid: fe9e936b68bd3d6449b29c06e8548525, type: 3}
+    m_circle: {fileID: 3776809616629173646, guid: d9cb2cd9df69ecc4482038d8f274ecad, type: 3}
+    m_inObj: {fileID: 1314613769}
 --- !u!1 &1095390680
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +672,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1314613769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314613770}
+  m_Layer: 0
+  m_Name: AnimationObjs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1314613770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314613769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.3711405, y: -1.6353012, z: -0.059887953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1334,6 +1369,7 @@ SceneRoots:
   - {fileID: 360439153}
   - {fileID: 1842330180}
   - {fileID: 1898466215}
+  - {fileID: 1314613770}
   - {fileID: 1095390683}
   - {fileID: 1116781583}
   - {fileID: 1007660127}
