@@ -13,6 +13,7 @@ public class UIPrefab
     [SerializeField] GameObject m_test01;
     [SerializeField] GameObject m_test02;
     [SerializeField] GameObject m_test03;
+    [SerializeField] GameObject m_test04;
     [Space]
     [SerializeField] GameObject m_inObj;
 
@@ -28,6 +29,10 @@ public class UIPrefab
     public GameObject test03
     {
         get => m_test03;
+    }
+    public GameObject test04
+    {
+        get => m_test04;
     }
     public GameObject inObj
     {
@@ -105,6 +110,11 @@ public class DragUIManager : MonoBehaviour
                     if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
                         scptGridMng.grid[x, y].tileType == TileType.RIDE_OBSTACLE)
                     {
+<<<<<<< HEAD
+=======
+                        Gl_Func.PlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
+                        scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData; // ScriptableObjectから情報を取得
+>>>>>>> game/EnemyAndPiece
                         isSucsess = true;
                     }
                 }
@@ -141,16 +151,20 @@ public class DragUIManager : MonoBehaviour
         //アクション別.
         switch (_plyAction)
         {
-            case PlyAction.TEST01: 
+            case PlyAction.PIECE01: 
                 nowActionObj = Instantiate(prfb.test01, prfb.inObj.transform); 
                 break;
 
-            case PlyAction.TEST02: 
+            case PlyAction.PIECE02: 
                 nowActionObj = Instantiate(prfb.test02, prfb.inObj.transform); 
                 break;
 
-            case PlyAction.TEST03: 
+            case PlyAction.PIECE03: 
                 nowActionObj = Instantiate(prfb.test03, prfb.inObj.transform); 
+                break;
+
+            case PlyAction.PIECE04:
+                nowActionObj = Instantiate(prfb.test04, prfb.inObj.transform);
                 break;
         }
     }

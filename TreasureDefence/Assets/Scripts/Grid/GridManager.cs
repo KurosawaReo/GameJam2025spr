@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
    - GridManager.cs -
 
@@ -8,6 +9,8 @@
    ・MoveEnemyData()の追加
    ・なぜか機能が同じ関数が2つあったため、IsInsideGrid()にまとめた
 */
+=======
+>>>>>>> game/EnemyAndPiece
 using Gloval;
 using UnityEngine;
 using System.IO;
@@ -23,7 +26,7 @@ public class GridManager : MonoBehaviour
 
     [Tooltip("盤面の縦の個数")]
     public int height = 10;
-
+    
     [Tooltip("盤面のプレハブをセット")]
     [SerializeField] GameObject gridPrefab;
 
@@ -110,7 +113,7 @@ public class GridManager : MonoBehaviour
             {
                 if (grid[x, y].tileType == TileType.TREASURE)
                 {
-                    print($"宝が見つかりました:{x},{y}");
+                    //print($"宝が見つかりました:{x},{y}");
                     return new Vector2Int(x, y);
                 }
             }
@@ -128,24 +131,15 @@ public class GridManager : MonoBehaviour
         {
             for (var y = 0; y < height; y++)
             {
-                // todo 画像を変更できるようにする
-
-                //var sprite = GetPrefab(grid[x, y].tileType);
-                //if (sprite != null)
-                //{
-                //    var obj = Instantiate(gridPrefab, new Vector3(x, 0, y), Quaternion.identity);
-                //    obj.GetComponent<Image>().sprite = sprite;
-                //}
-       
                 var sprite = GetPrefab(grid[x, y].tileType);
                 if (sprite != null)
                 {
                     // 生成
                     var obj = Instantiate(gridPrefab, gridParent);
-
+                    
                     // 位置を移動
                     obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
-
+                    
                     // 画像を変更
                     obj.GetComponent<Image>().sprite = sprite;
                 }
@@ -154,7 +148,7 @@ public class GridManager : MonoBehaviour
                 //var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                //obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE,y * Gl_Const.BOARD_CELL_SIZE);
+                //obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
             }
         }
     }
@@ -228,26 +222,6 @@ public class GridManager : MonoBehaviour
         piece.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
         grid[x, y].isOccupied = true;
     }
-
-#if false
-    /// <summary>
-    /// 敵を描画
-    /// </summary>
-    void SpawnEnemies()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (grid[x, y].tileType == TileType.ENEMY_SPAWN)
-                {
-                    var enemy = Instantiate(enemyPrefab, enemyParent);
-                    enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
-                }
-            }
-        }
-    }
-#endif
 
     /// <summary>
     /// 拡張エディター用.
