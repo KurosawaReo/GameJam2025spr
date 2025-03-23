@@ -79,11 +79,6 @@ public class GameManager : MonoBehaviour
     //時間経過切り替え用.
     int timeModeNo = 0;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         //フェーズ別.
@@ -126,6 +121,7 @@ public class GameManager : MonoBehaviour
                     timeModeNo++;      //次のモードへ.
                 }
                 break;
+
             case 2:
                 //準備フェーズ終了.
                 if (gameData.timer >= Gl_Const.READY_PHASE_TIME)
