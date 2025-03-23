@@ -74,6 +74,7 @@ public class DragUIManager : MonoBehaviour
 {
     [Header("- script -")]
     [SerializeField] GridManager scptGridMng;
+    [SerializeField] GameManager scptGameMng;
 
     [Header("- prefab -")]
     [SerializeField] UIPrefab prfb;
@@ -83,7 +84,11 @@ public class DragUIManager : MonoBehaviour
 
     void Update()
     {
-        DragUI();
+        //まだ駒を置けるなら.
+        if (!scptGameMng.IsPlyPieceMax())
+        {
+            DragUI();
+        }
     }
 
     /// <summary>
@@ -102,28 +107,19 @@ public class DragUIManager : MonoBehaviour
             {
                 var (x, y) = Gl_Func.WPosToBoardPos(mPos); //ボード座標に変換.
 
-                bool isSucsess = false;
-
-                //盤面内である場合.
-                if (x >= 0 && x < scptGridMng.width &&
-                    y >= 0 && y < scptGridMng.height)
+                //設置できるなら.
+                if (scptGridMng.CanPlacePiece(x, y))
                 {
-                    //設置可能なマスなら.
-                    if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
-                        scptGridMng.grid[x, y].tileType == TileType.RIDE_OBSTACLE)
-                    {
-                        Gl_Func.PlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
-                        scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData; // ScriptableObjectから情報を取得
-                        isSucsess = true;
-                    }
-                }
+                    //ScriptableObjectから情報を取得.
+                    scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData;
+                    //駒カウント+1
+                    scptGameMng.AddPlyPieceCnt(1);
 
-                //成功したなら.
-                if (isSucsess)
-                {
                     //成功アニメーション.
-                    var obj = Instantiate(anim.circle, anim.inObj.transform);
-                    Gl_Func.PlaceOnBoard(obj, x, y); //ボード座標を元に設置.
+                    var objAnim = Instantiate(anim.circle, anim.inObj.transform);
+                    //ボード座標を元に設置.
+                    Gl_Func.PlaceOnBoard(nowActionObj, x, y); //操作obj.                    
+                    Gl_Func.PlaceOnBoard(objAnim, x, y);      //アニメーションobj.
                 }
                 else
                 {

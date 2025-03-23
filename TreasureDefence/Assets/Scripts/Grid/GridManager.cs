@@ -166,7 +166,7 @@ public class GridManager : MonoBehaviour
     /// <param name="x">横のインデックス</param>
     /// <param name="y">縦のインデックス</param>
     /// <returns>置けるかどうか</returns>
-    bool CanPlacePiece(int x, int y)
+    public bool CanPlacePiece(int x, int y)
     {
         if (x < 0 || x >= width || y < 0 || y >= height)
         {
