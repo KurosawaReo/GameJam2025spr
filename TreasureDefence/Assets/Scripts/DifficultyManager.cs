@@ -9,6 +9,7 @@ public class DifficultyManager : MonoBehaviour
 {
     static public DifficultyManager instance;
 
+
     void Awake()
     {
         if (instance == null)
@@ -29,19 +30,51 @@ public class DifficultyManager : MonoBehaviour
         Hard,
     }
 
+    Text targetText;
+    float speed = 1.0f;
+
     public Difficulty currentDifficulty;　//現在の難易度
+
+    void Start()
+    {
+        Text text = this.GetComponent<Text>();
+    }
 
     public void OnClickedButtonEasy() //Easyボタン
     {
-        setDifficulty(Difficulty.Easy); //難易度をEasyにセット
+        color();
+        Invoke("setEasy", 3f);
     }
     public void OnClickedButtonNomal() //Nomalボタン
     {
-        setDifficulty(Difficulty.Nomal); //難易度をNomalにセット
+        Invoke("setNomal", 3f);
     }
     public void OnClickedButtonHard() //Hardボタン
     {
-        setDifficulty (Difficulty.Hard); //難易度をHardにセット
+        Invoke("setHard", 3f);
+    }
+
+    void setEasy()
+    {
+        setDifficulty(Difficulty.Easy); //難易度をEasyにセット
+    }
+
+    void setNomal()
+    {
+        setDifficulty(Difficulty.Nomal); //難易度をNomalにセット
+    }
+
+    void setHard()
+    {
+        setDifficulty(Difficulty.Hard); //難易度をHardにセット
+    }
+
+    void color()
+    {
+        float alpha = Mathf.PingPong(Time.time * speed, 1.0f); // 0~1を繰り返す
+        Color newColor = targetText.color;
+        newColor.a = alpha;
+        targetText.color = newColor;
     }
 
     public void setDifficulty(Difficulty difficulty)
