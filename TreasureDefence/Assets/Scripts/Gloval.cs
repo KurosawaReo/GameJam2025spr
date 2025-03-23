@@ -74,10 +74,10 @@ namespace Gloval
         public const int   BOARD_GRID_WID  = 10;            // 盤面の横のマスの個数
         public const int   BOARD_GRID_HEI  = 10;            // 盤面の縦のマスの個数
 
-        public const float ENEMY_DEFAULT_RECAST_TIME = 10;   // デフォルトの敵生成のリキャストタイム
+        public const float ENEMY_DEFAULT_RECAST_TIME = 10;  // デフォルトの敵生成のリキャストタイム
         public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.
 
-        public const float READY_PHASE_TIME = 1;            // 準備フェーズの期間.
+        public const float READY_PHASE_TIME = 15;           // 準備フェーズの期間.
 
         public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
         public const string RESOURCES_PATH = "Resources/";
@@ -90,6 +90,14 @@ namespace Gloval
             IMAGES_PATH + "Wall",           // 壁.
             IMAGES_PATH + "Treasure",       // 宝.
             IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
+        };
+
+        //画面中央テキスト.
+        public static string[] MID_TEXT = 
+        { 
+            "敵が全滅するまで宝を守ろう",
+            "準備フェーズ",
+            "守備フェーズ",
         };
     }
 
