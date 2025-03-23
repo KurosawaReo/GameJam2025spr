@@ -21,6 +21,9 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("グリッドマネージャーをセット")]
     public GridManager gridManager;
 
+    [Tooltip("GameManagerをセット")]
+    public GameManager gameManager;
+
     [Tooltip("リキャストタイム")]
     float recastTime;
 
@@ -45,6 +48,7 @@ public class EnemyManager : MonoBehaviour
     void Init()
     {
         gridManager = FindObjectOfType<GridManager>();
+        gameManager = FindObjectOfType<GameManager>();
         recastTime = Gl_Const.ENEMY_DEFAULT_RECAST_TIME;
     }
 
@@ -62,6 +66,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnEnemies()
     {
+        if (gameManager.gameData.phase != Phase.DEFENSE)
+        {
+            print("守備フェーズではありません");
+            yield return new WaitForSeconds(recastTime);
+            StartCoroutine(SpawnEnemies());
+        }
+
         for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
         {
             for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)

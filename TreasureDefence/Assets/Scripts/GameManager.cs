@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
         int setAbleCnt = gameData.plyPieceMaxCnt - gameData.plyPieceNowCnt;
 
         //テキスト内容.
-        objDisTxt1.GetComponent<Text>().text = "なにか";
+        objDisTxt1.GetComponent<Text>().text = "コイン";
         objDisTxt2.GetComponent<Text>().text = "置ける駒数: " + setAbleCnt;
     }
 
