@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         0,             //所持金.
         0,             //タイマー.
         0,             //置いた駒の現在数.
-        15              //置ける駒の最大数.
+        15             //置ける駒の最大数.
     );
 
     void Update()
@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour
         //フェーズ別.
         switch (gameData.phase)
         {
-            case Phase.READY: UpdateReady(); break;
+            case Phase.READY:   UpdateReady();   break;
             case Phase.DEFENSE: UpdateDefense(); break;
-            case Phase.RESULT: UpdateResult(); break;
+            case Phase.RESULT:  UpdateResult();  break;
 
             default: break;
         }
