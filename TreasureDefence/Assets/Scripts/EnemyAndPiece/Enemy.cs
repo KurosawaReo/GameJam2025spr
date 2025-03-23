@@ -21,8 +21,8 @@ public class Enemy : MonoBehaviour
         gridManager = FindObjectOfType<GridManager>();
 
         // 現在の位置をセルサイズで割ってどのマスにいるのかを特定する
-        currentPos = new Vector2Int(Mathf.RoundToInt(transform.localPosition.x / Gl_Const.CELL_SIZE),
-                                    Mathf.RoundToInt(transform.localPosition.y / Gl_Const.CELL_SIZE));
+        currentPos = new Vector2Int(Mathf.RoundToInt(transform.localPosition.x / Gl_Const.BOARD_CELL_SIZE),
+                                    Mathf.RoundToInt(transform.localPosition.y / Gl_Const.BOARD_CELL_SIZE));
         
         // 宝の位置を取得
         targetPos = gridManager.FindTreasurePosition();
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         // 目標に到達するまで待機
         while (currentPos != targetPos)
         {
-            if (!gridManager.IsPositionValid(currentPos) || !gridManager.IsPositionValid(targetPos))
+            if (!gridManager.IsInsideGrid(currentPos) || !gridManager.IsInsideGrid(targetPos))
             {
                 Debug.LogError("無効な位置です！");
                 yield break; // コルーチンを早期に終了
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
     IEnumerator MoveTo(Vector2Int nextPos)
     {
         var start = transform.localPosition;
-        var end = new Vector3(nextPos.x * Gl_Const.CELL_SIZE, nextPos.y * Gl_Const.CELL_SIZE, 0);
+        var end = new Vector3(nextPos.x * Gl_Const.BOARD_CELL_SIZE, nextPos.y * Gl_Const.BOARD_CELL_SIZE, 0);
         var duration = 0.2f;
         var elapsed = 0f;
 

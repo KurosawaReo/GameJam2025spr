@@ -1,9 +1,20 @@
+/*
+   - GridManager.cs -
+
+   伊野原先輩作.
+   盤面の縦横グリッド数は可変値っぽいため、ここから取得する.
+
+   2025/03/22放課後やったこと:
+   ・MoveEnemyData()の追加
+   ・なぜか機能が同じ関数が2つあったため、IsInsideGrid()にまとめた
+*/
 using Gloval;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
@@ -12,7 +23,7 @@ public class GridManager : MonoBehaviour
 
     [Tooltip("盤面の縦の個数")]
     public int height = 10;
-    
+
     [Tooltip("盤面のプレハブをセット")]
     [SerializeField] GameObject gridPrefab;
 
@@ -119,15 +130,22 @@ public class GridManager : MonoBehaviour
             {
                 // todo 画像を変更できるようにする
 
+                //var sprite = GetPrefab(grid[x, y].tileType);
+                //if (sprite != null)
+                //{
+                //    var obj = Instantiate(gridPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                //    obj.GetComponent<Image>().sprite = sprite;
+                //}
+       
                 var sprite = GetPrefab(grid[x, y].tileType);
                 if (sprite != null)
                 {
                     // 生成
                     var obj = Instantiate(gridPrefab, gridParent);
-                    
+
                     // 位置を移動
-                    obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
-                    
+                    obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
+
                     // 画像を変更
                     obj.GetComponent<Image>().sprite = sprite;
                 }
@@ -136,7 +154,7 @@ public class GridManager : MonoBehaviour
                 //var obj = Instantiate(gridPrefab, gridParent);
 
                 // 位置を移動
-                //obj.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE,y * Gl_Const.CELL_SIZE);
+                //obj.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE,y * Gl_Const.BOARD_CELL_SIZE);
             }
         }
     }
@@ -207,9 +225,29 @@ public class GridManager : MonoBehaviour
         }
 
         var piece = Instantiate(piecePrefab, pieceParent);
-        piece.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+        piece.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
         grid[x, y].isOccupied = true;
     }
+
+#if false
+    /// <summary>
+    /// 敵を描画
+    /// </summary>
+    void SpawnEnemies()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (grid[x, y].tileType == TileType.ENEMY_SPAWN)
+                {
+                    var enemy = Instantiate(enemyPrefab, enemyParent);
+                    enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
+                }
+            }
+        }
+    }
+#endif
 
     /// <summary>
     /// 拡張エディター用.
@@ -336,14 +374,32 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 位置がグリッド内かどうかを判定するメソッド
+    /// grid配列に既に入っているentityを移動させる.
     /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    public bool IsPositionValid(Vector2Int position)
+    /// <param name="_nowPos">元の配列位置</param>
+    /// <param name="_move">移動量</param>
+    /// <returns>移動に成功したか</returns>
+    public bool MoveEntityData(Vector2Int _nowPos, Vector2Int _move)
     {
-        // 位置がグリッドの範囲内に収まっているか確認
-        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+        int x = _nowPos.x;
+        int y = _nowPos.y;
+
+        //配列内であれば.
+        if (IsInsideGrid(new Vector2Int(x, y)))
+        {
+            //データを移動させる.
+            grid[x, y].entity     = grid[x+_move.x, y+_move.y].entity;
+            grid[x, y].isOccupied = grid[x+_move.x, y+_move.y].isOccupied;
+            //元の場所は空に.
+            grid[x+_move.x, y+_move.y].entity     = null;
+            grid[x+_move.x, y+_move.y].isOccupied = false;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -359,12 +415,12 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 盤面の範囲チェック.
+    /// 盤面外に出ていないかチェック.
     /// </summary>
-    /// <param name="position">位置</param>
+    /// <param name="pos">位置</param>
     /// <returns>盤面の範囲内かどうか</returns>
-    public bool IsInsideGrid(Vector2Int position)
+    public bool IsInsideGrid(Vector2Int pos)
     {
-        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+        return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
 }

@@ -62,14 +62,14 @@ public class EnemyManager : MonoBehaviour
         // todo 抽選結果の敵のScrptableObjectを取得or使用して敵の画像を変更する
         // todo できれば各敵スポーンのところからランダムな時間で敵が出てくるようにする
 
-        for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
+        for (int x = 0; x < gridManager.width; x++)
         {
-            for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)
+            for (int y = 0; y < gridManager.height; y++)
             {
                 if (gridManager.grid[x, y].tileType == TileType.ENEMY_SPAWN)
                 {
                     var enemy = Instantiate(enemyPrefab, enemyParent);
-                    enemy.transform.localPosition = new Vector2(x * Gl_Const.CELL_SIZE, y * Gl_Const.CELL_SIZE);
+                    enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
                     AddEnemy(enemy.GetComponent<Enemy>());
                 }
             }

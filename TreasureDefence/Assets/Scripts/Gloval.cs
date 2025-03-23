@@ -17,26 +17,16 @@ namespace Gloval
         NORMAL,
         HARD,
     }
+
     /// <summary>
     /// ゲームのフェーズ.
     /// </summary>
     public enum Phase
     {
-        PREPARA, //preparation = 練習.
-        DEFENSE, //defense = 防御.
+        READY,   //練習フェーズ.
+        DEFENSE, //防御フェーズ.
+        RESULT,  //終了フェーズ.
     }
-    /// <summary>
-    /// 地形や宝.
-    /// </summary>
-    public enum TerrainType
-    {
-        NONE,       //なし.
-        WALL,       //壁.
-        OBSTACLES,  //障害物.
-        ENEMY_GATE, //敵入り口.
-        TREASURE,   //宝.
-    }
-
 
     /// <summary>
     /// タイルのタイプ.
@@ -51,37 +41,41 @@ namespace Gloval
         ENEMY_SPAWN     // 敵の生成ポイント
     }
 
+    public enum PlyAction
+    { 
+        TEST01,
+        TEST02,
+        TEST03,
+
+        NONE,   //操作なし.
+    }
+
     /// <summary>
     /// グローバル定数.
     /// </summary>
     public static class Gl_Const
     {
-        public const int ENTITY_ADDRES_NUM = 2;     // エンティティの現在地管理用配列のサイズ
-        public const int CELL_SIZE = 100;           // 1マスの大きさ
+        public const int   BOARD_CELL_SIZE = 100;           // 盤面の1マスのサイズ.
+        public const float BOARD_DIS_ADD_X = 0.55f;         // 盤面にobjを配置した時のずらす量x.
+        public const float BOARD_DIS_ADD_Y = 0.72f;         // 盤面にobjを配置した時のずらす量y.
 
-        public const string IMAGES_PATH = "Images/";    // Imagesフォルダのパス
-        public const string RESOURCES_PATH = "Resources/";
-        public const string GRID_JSON_PATH = "Assets/" + RESOURCES_PATH + "gridData.json";    // gridDataのパス
-        public static string[] TILE_TYPE_IMAGES_PATH =  // タイルタイプ別の画像のパス
-        {
-            IMAGES_PATH + "Empty",          // 空
-            IMAGES_PATH + "Obstacle",       // 障害物
-            IMAGES_PATH + "RideObstacle",   // 障害物
-            IMAGES_PATH + "Wall",           // 壁
-            IMAGES_PATH + "Treasure",       // 宝
-            IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント
-        };
-
-        //[盤面]マス数.
-        public const int   BOARD_GRID_HEI  = 10;   //縦マス数.
-        public const int   BOARD_GRID_WID  = 10;   //横マス数.
-
-        //[盤面]位置調整.
-        public const float BOARD_LEFT_UP_X = -4f;  //盤面の左上基準点x.
-        public const float BOARD_LEFT_UP_Y = 4f;   //盤面の左上基準点y.
-        public const float BOARD_GRID_SIZE = 0.8f; //グリッドのサイズ比率.
-
+        public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.
         public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
+
+        public const float READY_PHASE_TIME = 1;            // 準備フェーズの期間.
+
+        public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
+        public const string RESOURCES_PATH = "Resources/";
+        public const string GRID_JSON_PATH = "Assets/" + RESOURCES_PATH + "gridData.json"; // gridDataのパス
+        public static string[] TILE_TYPE_IMAGES_PATH =      // タイルタイプ別の画像のパス
+        {
+            IMAGES_PATH + "Empty",          // 空.
+            IMAGES_PATH + "Obstacle",       // 障害物.
+            IMAGES_PATH + "RideObstacle",   // 障害物.
+            IMAGES_PATH + "Wall",           // 壁.
+            IMAGES_PATH + "Treasure",       // 宝.
+            IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
+        };
     }
 
     /// <summary>
@@ -90,21 +84,77 @@ namespace Gloval
     public static class Gl_Func
     {
         /// <summary>
-        /// ボード座標を元にunity上に配置する.
+        /// ボード座標を元に配置.
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_x">盤面座標のx</param>
-        /// <param name="_y">盤面座標のy</param>
-        public static void ObjectSetBoard(GameObject _obj, int _x, int _y)
+        /// <param name="_bPos">ボード座標</param>
+        public static void PlaceOnBoard(GameObject _obj, int _x, int _y)
         {
-            //グリッドのサイズ.
-            float size = Gl_Const.BOARD_GRID_SIZE;
-            //基準点+ずらす量.
-            float setX = Gl_Const.BOARD_LEFT_UP_X + _x * size;
-            float setY = Gl_Const.BOARD_LEFT_UP_Y - _y * size;
+            Vector2 bPos;
+
+            //位置調整.
+            bPos.x = (_x-4) * Gl_Const.BOARD_CELL_SIZE;
+            bPos.y = (_y-4) * Gl_Const.BOARD_CELL_SIZE;
+            //"Canvas"基準からワールド座標に戻す.
+            Vector2 wPos = LPosToWPos(GameObject.Find("Canvas"), bPos);
+            
             //配置.
-            _obj.transform.localPosition = new Vector2(setX, setY);
-            _obj.transform.localScale    = new Vector2(size, size);
+            _obj.transform.position = wPos - new Vector2(Gl_Const.BOARD_DIS_ADD_X, Gl_Const.BOARD_DIS_ADD_Y);
+        }
+
+        /// <summary>
+        /// ワールド座標をボード座標に変換.
+        /// </summary>
+        /// <param name="_wPos">ワールド座標</param>
+        /// <returns>ボード座標</returns>
+        public static (int x, int y) WPosToBoardPos(Vector2 _wPos)
+        {
+            _wPos += new Vector2(Gl_Const.BOARD_DIS_ADD_X, Gl_Const.BOARD_DIS_ADD_Y);
+            
+            //"Canvas"基準のローカル座標に変換.
+            Vector2 lPos = WPosToLPos(GameObject.Find("Canvas"), _wPos);
+
+            //グリッド上でどこに位置するかを計算.
+            int bPosX = Mathf.RoundToInt(lPos.x / Gl_Const.BOARD_CELL_SIZE);
+            int bPosY = Mathf.RoundToInt(lPos.y / Gl_Const.BOARD_CELL_SIZE);
+            
+            //左下のマスが(0, 0)となるようにして返す.
+            return (bPosX+4, bPosY+4);
+        }
+
+        /// <summary>
+        /// ローカル座標をワールド座標に変換.
+        /// </summary>
+        /// <param name="_obj">親オブジェクト</param>
+        /// <param name="_lPos">ローカル座標</param>
+        /// <returns>ワールド座標</returns>
+        public static Vector2 LPosToWPos(GameObject _obj, Vector2 _lPos)
+        {
+            var wPos = _obj.transform.TransformPoint(_lPos);
+            return wPos;
+        }
+
+        /// <summary>
+        /// ワールド座標をローカル座標に変換.
+        /// </summary>
+        /// <param name="_obj">親オブジェクト</param>
+        /// <param name="_wPos">ワールド座標</param>
+        /// <returns>ローカル座標</returns>
+        public static Vector2 WPosToLPos(GameObject _obj, Vector2 _wPos)
+        {
+            var lPos = _obj.transform.InverseTransformPoint(_wPos);
+            return lPos;
+        }
+
+        /// <summary>
+        /// マウス座標取得.
+        /// </summary>
+        public static Vector2 GetMousePos()
+        {
+            Vector2 mPos = Input.mousePosition;
+            Vector2 wPos = Camera.main.ScreenToWorldPoint(mPos);
+
+            return wPos;
         }
     }
 
@@ -114,9 +164,9 @@ namespace Gloval
     [Serializable]
     public class GridCell
     {
-        public TileType     tileType;     // タイルタイプ
-        public bool         isOccupied;   // 駒が置いてあるかどうか
-        public EntityBase   entity;       // エンティティの実体をセット
+        public TileType    tileType;    // タイルタイプ(地形や宝)
+        public bool        isOccupied;  // 駒が置いてあるかどうか
+        public EntityBase  entity;      // このマスにいる駒(味方, 敵)の実体
 
         /// <summary>
         /// コンストラクタ
