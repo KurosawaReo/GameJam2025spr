@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/DifficultyScene.unity
+    guid: 3006abd06ae64d443a91b291c6c6584e
+  - enabled: 1
+    path: Assets/Scenes/EasyGameScene.unity
+    guid: 5da7dc4d16e6e82489186194ba7a88bc
+  - enabled: 1
+    path: Assets/Scenes/NomalGameScene.unity
+    guid: 10c27f8bd90e9a24292d45eb3102dfe7
+  - enabled: 1
+    path: Assets/Scenes/HardGameScene.unity
+    guid: 26075e630b37e3b4fa5ad0be120b71c1
   m_configObjects: {}

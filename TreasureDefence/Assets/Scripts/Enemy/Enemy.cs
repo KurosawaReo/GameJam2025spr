@@ -178,7 +178,6 @@ public class Enemy : MonoBehaviour
                                                 Mathf.RoundToInt(transform.localPosition.y / Gl_Const.BOARD_CELL_SIZE));
 
                     //print($"currentPos:{currentPos}");
-
                     //gridManager.activeEnemyList[count] = currentPos;    // “G‚ÌˆÊ’u‚ğ•Û‚³‚¹‚é
                 }
             }
