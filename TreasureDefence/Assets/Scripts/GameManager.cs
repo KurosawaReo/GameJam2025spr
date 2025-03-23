@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         0,             //所持金.
         0,             //タイマー.
         0,             //置いた駒の現在数.
-        5              //置ける駒の最大数.
+        15              //置ける駒の最大数.
     );
 
     void Update()
