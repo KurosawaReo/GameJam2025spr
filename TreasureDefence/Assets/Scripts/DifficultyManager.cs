@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class DifficultyManager : MonoBehaviour
 {
-    static public DifficultyManager/*âºñºèÃ*/ instance;
+    static public DifficultyManager instance;
 
     void Awake()
     {

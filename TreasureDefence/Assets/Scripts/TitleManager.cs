@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +8,12 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
 
-    static public TitleManager/*âºñºèÃ*/ instance;
+    static public TitleManager instance;
+
+    bool titleMove = false;
+
+    [SerializeField] GameObject titleButton;
+    [SerializeField] GameObject title;
 
     void Awake()
     {
@@ -21,8 +27,28 @@ public class TitleManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void OnClickedButton(string DifficultyScene)
+
+    private void Update()
     {
+        if (titleMove == true)
+        {
+            titleButton.transform.position += Vector3.down * 3f * Time.deltaTime;
+        }
+
+        if (titleMove == true)
+        {
+            title.transform.position += Vector3.up * 3f * Time.deltaTime;
+        }
+    }
+    public void OnClickedButton()
+    {
+        titleMove = true;
+        Invoke("Difficulty", 3f);
+    }
+
+    public void Difficulty()
+    {
+        titleMove = false;
         SceneManager.LoadScene("DifficultyScene");
     }
 }
