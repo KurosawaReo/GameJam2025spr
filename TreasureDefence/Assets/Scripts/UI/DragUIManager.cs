@@ -13,6 +13,7 @@ public class UIPrefab
     [SerializeField] GameObject m_test01;
     [SerializeField] GameObject m_test02;
     [SerializeField] GameObject m_test03;
+    [SerializeField] GameObject m_test04;
     [Space]
     [SerializeField] GameObject m_inObj;
 
@@ -20,22 +21,22 @@ public class UIPrefab
     public GameObject test01 
     {
         get => m_test01;
-        set => m_test01 = value; 
     }
     public GameObject test02
     {
         get => m_test02;
-        set => m_test02 = value;
     }
     public GameObject test03
     {
         get => m_test03;
-        set => m_test03 = value;
+    }
+    public GameObject test04
+    {
+        get => m_test04;
     }
     public GameObject inObj
     {
         get => m_inObj;
-        set => m_inObj = value;
     }
 }
 
@@ -55,17 +56,14 @@ public class UIAnim
     public GameObject batu
     {
         get => m_batu;
-        set => m_batu = value;
     }
     public GameObject circle
     {
         get => m_circle;
-        set => m_circle = value;
     }
     public GameObject inObj
     {
         get => m_inObj;
-        set => m_inObj = value;
     }
 }
 
@@ -76,6 +74,7 @@ public class DragUIManager : MonoBehaviour
 {
     [Header("- script -")]
     [SerializeField] GridManager scptGridMng;
+    [SerializeField] GameManager scptGameMng;
 
     [Header("- prefab -")]
     [SerializeField] UIPrefab prfb;
@@ -85,7 +84,11 @@ public class DragUIManager : MonoBehaviour
 
     void Update()
     {
-        DragUI();
+        //まだ駒を置けるなら.
+        if (!scptGameMng.IsPlyPieceMax())
+        {
+            DragUI();
+        }
     }
 
     /// <summary>
@@ -104,27 +107,19 @@ public class DragUIManager : MonoBehaviour
             {
                 var (x, y) = Gl_Func.WPosToBoardPos(mPos); //ボード座標に変換.
 
-                bool isSucsess = false;
-
-                //盤面内である場合.
-                if (x >= 0 && x < scptGridMng.width &&
-                    y >= 0 && y < scptGridMng.height)
+                //設置できるなら.
+                if (scptGridMng.CanPlacePiece(x, y))
                 {
-                    //設置可能なマスなら.
-                    if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
-                        scptGridMng.grid[x, y].tileType == TileType.RIDE_OBSTACLE)
-                    {
-                        Gl_Func.PlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
-                        isSucsess = true;
-                    }
-                }
+                    //ScriptableObjectから情報を取得.
+                    scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData;
+                    //駒カウント+1
+                    scptGameMng.AddPlyPieceCnt(1);
 
-                //成功したなら.
-                if (isSucsess)
-                {
                     //成功アニメーション.
-                    var obj = Instantiate(anim.circle, anim.inObj.transform);
-                    Gl_Func.PlaceOnBoard(obj, x, y); //ボード座標を元に設置.
+                    var objAnim = Instantiate(anim.circle, anim.inObj.transform);
+                    //ボード座標を元に設置.
+                    Gl_Func.PlaceOnBoard(nowActionObj, x, y); //操作obj.                    
+                    Gl_Func.PlaceOnBoard(objAnim, x, y);      //アニメーションobj.
                 }
                 else
                 {
@@ -148,16 +143,20 @@ public class DragUIManager : MonoBehaviour
         //アクション別.
         switch (_plyAction)
         {
-            case PlyAction.TEST01: 
+            case PlyAction.PIECE01: 
                 nowActionObj = Instantiate(prfb.test01, prfb.inObj.transform); 
                 break;
 
-            case PlyAction.TEST02: 
+            case PlyAction.PIECE02: 
                 nowActionObj = Instantiate(prfb.test02, prfb.inObj.transform); 
                 break;
 
-            case PlyAction.TEST03: 
+            case PlyAction.PIECE03: 
                 nowActionObj = Instantiate(prfb.test03, prfb.inObj.transform); 
+                break;
+
+            case PlyAction.PIECE04:
+                nowActionObj = Instantiate(prfb.test04, prfb.inObj.transform);
                 break;
         }
     }

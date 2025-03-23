@@ -13,6 +13,12 @@ public class EnemyPathfinding : MonoBehaviour
         path = AStarSearch(start, goal);
     }
 
+    /// <summary>
+    /// ƒ‹[ƒg’Tõ•”•ª
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="goal"></param>
+    /// <returns></returns>
     private List<Vector2Int> AStarSearch(Vector2Int start, Vector2Int goal)
     {
         var openSet = new SortedList<float, Vector2Int>();

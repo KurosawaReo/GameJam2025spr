@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 駒の基底クラス(味方, 敵問わず)
+/// </summary>
 public abstract class EntityBase : ScriptableObject
 {
     [Header("基本情報系")]
@@ -17,6 +20,12 @@ public abstract class EntityBase : ScriptableObject
 
     [Tooltip("画像")]
     public Sprite sprite;
+
+    [Tooltip("HP")]
+    public int hp;
+
+    [Tooltip("攻撃力")]
+    public int atk;
 
     [Tooltip("エンティティの盤面の現在地(2次元配列のインデックス)")]
     public int[] entityAddres = new int[Gl_Const.ENTITY_ADDRES_NUM];
