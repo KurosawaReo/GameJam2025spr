@@ -2,6 +2,7 @@ using Gloval;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class EnemyManager : MonoBehaviour
 
     [Tooltip("敵をまとめる親オブジェクトをセット")]
     [SerializeField] Transform enemyParent;
+
+    [Tooltip("敵のScriptableObjectをセット")]
+    [SerializeField] List<EnemyData> enemyDatas = new List<EnemyData>();
 
     [Tooltip("グリッドマネージャーをセット")]
     public GridManager gridManager;
@@ -58,18 +62,41 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnEnemies()
     {
-        // todo Enemyを抽選する
-        // todo 抽選結果の敵のScrptableObjectを取得or使用して敵の画像を変更する
-        // todo できれば各敵スポーンのところからランダムな時間で敵が出てくるようにする
+        // todo 敵が駒を攻撃する
+        // todo 敵と駒にHPをつける
+        // todo 敵と駒のHPが0になったら破壊する
+        // todo 駒を無視する敵(進行方向にいる場合は攻撃)と周囲に駒いた場合に駒を攻撃する敵を作る
 
-        for (int x = 0; x < gridManager.width; x++)
+        for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
         {
-            for (int y = 0; y < gridManager.height; y++)
+            for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)
             {
                 if (gridManager.grid[x, y].tileType == TileType.ENEMY_SPAWN)
                 {
+                    // 確率で処理をスキップして敵を生成しないようにする
+                    var rnd = Random.Range(0,100);
+
+                    if (rnd < 30)
+                    {
+                        // 処理をスキップ
+                        continue;
+                    }
+
+                    // 敵の生成ポイントを見つけた時
+                    // 敵の種類から抽選をしてどの敵を出すのか決める
+                    var enemyIndex = Random.Range(0, enemyDatas.Count);
+                    //print($"敵の番号：{enemyIndex}");
+
+                    // 敵生成
                     var enemy = Instantiate(enemyPrefab, enemyParent);
+
+                    // 初期座標を調整
                     enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);
+
+                    // 敵の画像を変更
+                    enemy.GetComponent<Image>().sprite = enemyDatas[enemyIndex].sprite;
+
+                    // リストに敵を追加
                     AddEnemy(enemy.GetComponent<Enemy>());
                 }
             }
