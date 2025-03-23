@@ -62,11 +62,6 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnEnemies()
     {
-        // todo “G‚ª‹î‚ğUŒ‚‚·‚é
-        // todo “G‚Æ‹î‚ÉHP‚ğ‚Â‚¯‚é
-        // todo “G‚Æ‹î‚ÌHP‚ª0‚É‚È‚Á‚½‚ç”j‰ó‚·‚é
-        // todo ‹î‚ğ–³‹‚·‚é“G(is•ûŒü‚É‚¢‚éê‡‚ÍUŒ‚)‚ÆüˆÍ‚É‹î‚¢‚½ê‡‚É‹î‚ğUŒ‚‚·‚é“G‚ğì‚é
-
         for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
         {
             for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)
@@ -89,6 +84,9 @@ public class EnemyManager : MonoBehaviour
 
                     // “G¶¬
                     var enemy = Instantiate(enemyPrefab, enemyParent);
+
+                    // Enemy‚ÉScriptableObject‚ğƒZƒbƒg
+                    enemy.GetComponent<Enemy>().enemyData = enemyDatas[enemyIndex];
 
                     // ‰ŠúÀ•W‚ğ’²®
                     enemy.transform.localPosition = new Vector2(x * Gl_Const.BOARD_CELL_SIZE, y * Gl_Const.BOARD_CELL_SIZE);

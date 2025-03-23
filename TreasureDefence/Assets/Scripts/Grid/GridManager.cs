@@ -14,7 +14,6 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
@@ -45,8 +44,36 @@ public class GridManager : MonoBehaviour
     [Tooltip("ノードリスト")]
     List<Node> nodes = new List<Node>();
 
+    [Tooltip("アクティブな敵を管理する用のリスト")]
+    public List<Vector2Int> activeEnemyList = new List<Vector2Int>();
+
+    [Tooltip("アクティブな敵の実体を管理する用のリスト")]
+    public List<GameObject> activeEnemyObjList = new List<GameObject>();
+
+    [Tooltip("アクティブな駒を管理する用のリスト")]
+    public List<Vector2Int> activePieceList = new List<Vector2Int>();
+
+    [Tooltip("アクティブな敵の実体を管理する用のリスト")]
+    public List<GameObject> activePieceObjList = new List<GameObject>();
+
     private void Awake()
     {
+        Init();
+    }
+
+    void Start()
+    {
+        
+    }
+
+    void Init()
+    {
+        // 敵と駒のリストをクリアする
+        activeEnemyList.Clear();
+        activeEnemyObjList.Clear();
+        activePieceList.Clear();
+        activePieceObjList.Clear();
+
         // 盤面情報を読み込む
         LoadGrid();
 
@@ -56,11 +83,6 @@ public class GridManager : MonoBehaviour
 
         // 盤面を生成
         GenerateGridObjects();
-    }
-
-    void Start()
-    {
-        
     }
 
     /// <summary>

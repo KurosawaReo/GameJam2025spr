@@ -26,7 +26,4 @@ public abstract class EntityBase : ScriptableObject
 
     [Tooltip("攻撃力")]
     public int atk;
-
-    [Tooltip("エンティティの盤面の現在地(2次元配列のインデックス)")]
-    public int[] entityAddres = new int[Gl_Const.ENTITY_ADDRES_NUM];
 }

@@ -4,6 +4,7 @@
 */
 
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Gloval
@@ -170,6 +171,16 @@ namespace Gloval
             Vector2 wPos = Camera.main.ScreenToWorldPoint(mPos);
 
             return wPos;
+        }
+
+        /// <summary>
+        /// ÉfÉBÉåÉC
+        /// </summary>
+        /// <param name="_waitTime">ë“ÇøÇΩÇ¢ïbêî</param>
+        /// <returns></returns>
+        public static IEnumerator Delay(float _waitTime)
+        {
+            yield return new WaitForSeconds(_waitTime);
         }
     }
 

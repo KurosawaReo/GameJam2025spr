@@ -112,6 +112,8 @@ public class DragUIManager : MonoBehaviour
                     {
                         Gl_Func.PlaceOnBoard(nowActionObj, x, y); //ボード座標を元に設置.
                         scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData; // ScriptableObjectから情報を取得
+                        scptGridMng.activePieceList.Add(new Vector2Int(x, y)); // 設置した駒の位置を保持する
+                        scptGridMng.activePieceObjList.Add(nowActionObj); // 設置した駒のオブジェクトを保持する
                         isSucsess = true;
                     }
                 }
