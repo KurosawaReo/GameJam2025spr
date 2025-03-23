@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
         // 目標に到達するまで待機
         while (currentPos != targetPos)
         {
-            if (!gridManager.IsPositionValid(currentPos) || !gridManager.IsPositionValid(targetPos))
+            if (!gridManager.IsInsideGrid(currentPos) || !gridManager.IsInsideGrid(targetPos))
             {
                 Debug.LogError("無効な位置です！");
                 yield break; // コルーチンを早期に終了

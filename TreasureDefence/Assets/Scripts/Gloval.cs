@@ -130,9 +130,9 @@ namespace Gloval
             Vector2 lPos = WPosToLPos(GameObject.Find("Canvas"), _wPos);
 
             //グリッド上でどこに位置するかを計算.
-            int bPosX = (int)Mathf.Round(lPos.x / Gl_Const.BOARD_CELL_SIZE);
-            int bPosY = (int)Mathf.Round(lPos.y / Gl_Const.BOARD_CELL_SIZE);
-
+            int bPosX = Mathf.RoundToInt(lPos.x / Gl_Const.BOARD_CELL_SIZE);
+            int bPosY = Mathf.RoundToInt(lPos.y / Gl_Const.BOARD_CELL_SIZE);
+            
             //左下のマスが(0, 0)となるようにして返す.
             return (bPosX+4, bPosY+4);
         }
@@ -181,7 +181,7 @@ namespace Gloval
     {
         public TileType    tileType;    // タイルタイプ(地形や宝)
         public bool        isOccupied;  // 駒が置いてあるかどうか
-        public EntityBase  entity;      // 駒(味方, 敵)の実体を入れる
+        public EntityBase  entity;      // このマスにいる駒(味方, 敵)の実体
 
         /// <summary>
         /// コンストラクタ

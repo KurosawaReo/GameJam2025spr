@@ -101,12 +101,10 @@ public class DragUIManager : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 var (x, y) = Gl_Func.WPosToBoardPos(mPos); //ボード座標に変換.
-
                 bool isSucsess = false;
 
                 //盤面内である場合.
-                if (x >= 0 && x < scptGridMng.width &&
-                    y >= 0 && y < scptGridMng.height)
+                if (scptGridMng.IsInsideGrid(new Vector2Int(x, y)))
                 {
                     //設置可能なマスなら.
                     if (scptGridMng.grid[x, y].tileType == TileType.EMPTY ||
@@ -121,15 +119,18 @@ public class DragUIManager : MonoBehaviour
                 //成功したなら.
                 if (isSucsess)
                 {
-                    //成功アニメーション.
-                    var obj = Instantiate(anim.circle, anim.inObj.transform);
-                    Gl_Func.PlaceOnBoard(obj, x, y); //ボード座標を元に設置.
+                    //アニメーション召喚.
+                    var objAnim = Instantiate(anim.circle, anim.inObj.transform);
+
+                    //ボード座標を元に設置.
+                    Gl_Func.PlaceOnBoard(nowActionObj, x, y);
+                    Gl_Func.PlaceOnBoard(objAnim, x, y);
                 }
                 else
                 {
-                    //失敗アニメーション.
-                    var obj = Instantiate(anim.batu, anim.inObj.transform);
-                    obj.transform.position = mPos;
+                    //その場にアニメーション召喚.
+                    var objAnim = Instantiate(anim.batu, anim.inObj.transform);
+                    objAnim.transform.position = mPos;
 
                     Destroy(nowActionObj); //objは消去する.
                 }
