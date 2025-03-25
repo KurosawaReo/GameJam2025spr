@@ -142,7 +142,7 @@ public class Piece : MonoBehaviour
             if (gridManager.activePieceObjList[i] == gameObject)
             {
                 // ©•ª©g‚Ìê‡
-                print($"©•ª‚ğŒ©‚Â‚¯‚Ü‚µ‚½");
+                //print($"©•ª‚ğŒ©‚Â‚¯‚Ü‚µ‚½");
                 index = i;
                 break;
             }

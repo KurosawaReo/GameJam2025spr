@@ -66,11 +66,19 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnEnemies()
     {
+#if false
+        //守備フェーズじゃなければ.
         if (gameManager.gameData.phase != Phase.DEFENSE)
         {
-            print("守備フェーズではありません");
             yield return new WaitForSeconds(recastTime);
+   
             StartCoroutine(SpawnEnemies());
+        }
+#endif
+        //守備フェーズじゃなければ.
+        while (gameManager.gameData.phase != Phase.DEFENSE)
+        {
+            yield return new WaitForSeconds(recastTime); //処理をここで留める.
         }
 
         for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)

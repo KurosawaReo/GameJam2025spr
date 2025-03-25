@@ -2056,7 +2056,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77833f59acf0d754c9644df54f113331, type: 2}
   - {fileID: 11400000, guid: 2305546eb98333448b172056ffd30450, type: 2}
   gridManager: {fileID: 1116781582}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 642624015}
 --- !u!4 &2127003916
 Transform:
   m_ObjectHideFlags: 0
@@ -2084,6 +2084,6 @@ SceneRoots:
   - {fileID: 1803010652}
   - {fileID: 1095390683}
   - {fileID: 1116781583}
-  - {fileID: 2127003916}
   - {fileID: 596354640}
+  - {fileID: 2127003916}
   - {fileID: 642624016}

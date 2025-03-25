@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-
     static public TitleManager instance;
 
     bool titleMove = false;
