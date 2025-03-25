@@ -73,11 +73,38 @@ public class GameManager : MonoBehaviour
         0,           //所持金.
         0,           //タイマー.
         0,           //置いた駒の現在数.
-        15           //置ける駒の最大数.
+        0            //置ける駒の最大数.
     );
 
     //時間経過切り替え用.
     int timeModeNo = 0;
+
+    void Start()
+    {
+        var scptDifMng = FindObjectOfType<DifficultyManager>();
+        
+        //難易度別.
+        switch (scptDifMng.selectDif)
+        {
+            case Difficulty.EASY:
+                //データの設定.
+                gameData.money = 1000;
+                gameData.plyPieceMaxCnt = 15;
+                break;
+
+            case Difficulty.NORMAL:
+                //データの設定.
+                gameData.money = 800;
+                gameData.plyPieceMaxCnt = 12;
+                break;
+
+            case Difficulty.HARD:
+                //データの設定.
+                gameData.money = 600;
+                gameData.plyPieceMaxCnt = 10;
+                break;
+        }
+    }
 
     void Update()
     {

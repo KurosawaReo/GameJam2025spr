@@ -25,6 +25,9 @@ public class Piece : MonoBehaviour
     [Tooltip("グリッドマネージャーをセット")]
     GridManager gridManager;
 
+    [Tooltip("GameManagerをセット")]
+    GameManager gameManager;
+
     [Tooltip("攻撃の対象")]
     GameObject target;
 
@@ -89,15 +92,17 @@ public class Piece : MonoBehaviour
 
         // グリッドマネージャーを取得
         gridManager = FindObjectOfType<GridManager>();
+        // ゲームマネージャーを取得
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     /// <summary>
     /// 攻撃を受けた時の処理
     /// </summary>
-    /// <param name="atk">攻撃した側の攻撃力</param>
-    public void Damage(int atk)
+    /// <param name="dmg">受けたダメージ</param>
+    public void Damage(int dmg)
     {
-        hp -= atk;
+        hp -= dmg;
 
         // 死亡した場合
         if (hp <= 0)
@@ -119,7 +124,10 @@ public class Piece : MonoBehaviour
             gridManager.activePieceList.RemoveAt(index);
             gridManager.activePieceObjList.RemoveAt(index);
 
-            Destroy(gameObject); // 自信を破棄する
+            // 駒のカウント-1
+            gameManager.AddPlyPieceCnt(-1);
+
+            Destroy(gameObject); // 自身を破棄する
         }
     }
 

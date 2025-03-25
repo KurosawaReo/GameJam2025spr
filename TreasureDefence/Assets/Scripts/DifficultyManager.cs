@@ -1,15 +1,14 @@
 using Gloval;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
+/// <summary>
+/// 難易度選択画面から残り続けるクラス.
+/// </summary>
 public class DifficultyManager : MonoBehaviour
 {
-    static public DifficultyManager instance;
-
-
+    //シーンを越えて使えるようにする設定.
+    public static DifficultyManager instance;
     void Awake()
     {
         if (instance == null)
@@ -23,52 +22,48 @@ public class DifficultyManager : MonoBehaviour
         }
     }
 
-    public enum Difficulty //難易度の列挙体
+    public Difficulty selectDif { get; set; } //選択難易度.
+
+    //Text targetText;
+    //float speed = 1.0f;
+
+    /// <summary>
+    /// Easyボタン.
+    /// </summary>
+    public void OnClickedButtonEasy()
     {
-        Easy,
-        Nomal,
-        Hard,
+        selectDif = Difficulty.EASY;
+        Invoke("SelectedDifficulty", 3f);
+        
+        //color();
+    }
+    /// <summary>
+    /// Normalボタン.
+    /// </summary>
+    public void OnClickedButtonNomal()
+    {
+        selectDif = Difficulty.NORMAL;
+        Invoke("SelectedDifficulty", 3f);
+    }
+    /// <summary>
+    /// Hardボタン.
+    /// </summary>
+    public void OnClickedButtonHard()
+    {
+        selectDif = Difficulty.HARD;
+        Invoke("SelectedDifficulty", 3f);
     }
 
-    Text targetText;
-    float speed = 1.0f;
-
-    public Difficulty currentDifficulty;　//現在の難易度
-
-    void Start()
+    /// <summary>
+    /// 難易度選択後の処理.
+    /// </summary>
+    public void SelectedDifficulty()
     {
-        Text text = this.GetComponent<Text>();
+        SceneManager.LoadScene("GameScene"); //ゲームシーンへ.
     }
 
-    public void OnClickedButtonEasy() //Easyボタン
-    {
-        color();
-        Invoke("setEasy", 3f);
-    }
-    public void OnClickedButtonNomal() //Nomalボタン
-    {
-        Invoke("setNomal", 3f);
-    }
-    public void OnClickedButtonHard() //Hardボタン
-    {
-        Invoke("setHard", 3f);
-    }
-
-    void setEasy()
-    {
-        setDifficulty(Difficulty.Easy); //難易度をEasyにセット
-    }
-
-    void setNomal()
-    {
-        setDifficulty(Difficulty.Nomal); //難易度をNomalにセット
-    }
-
-    void setHard()
-    {
-        setDifficulty(Difficulty.Hard); //難易度をHardにセット
-    }
-
+#if false
+    //???
     void color()
     {
         float alpha = Mathf.PingPong(Time.time * speed, 1.0f); // 0~1を繰り返す
@@ -76,24 +71,5 @@ public class DifficultyManager : MonoBehaviour
         newColor.a = alpha;
         targetText.color = newColor;
     }
-
-    public void setDifficulty(Difficulty difficulty)
-    {
-        currentDifficulty = difficulty; //選択した難易度に変更
-
-        switch (currentDifficulty) {
-            case Difficulty.Easy: //Easyの場合
-                SceneManager.LoadScene("EasyGameScene"); //難易度Easyへ
-                break;
-
-            case Difficulty.Nomal: //Nomalの場合
-                SceneManager.LoadScene("NomalGameScene"); //難易度Nomalへ
-                break;
-
-            case Difficulty.Hard: //Hardの場合
-                SceneManager.LoadScene("HardGameScene"); //難易度Hardへ
-                break;
-        }
-    }
-
+#endif
 }
