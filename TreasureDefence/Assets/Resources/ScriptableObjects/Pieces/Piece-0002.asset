@@ -16,4 +16,5 @@ MonoBehaviour:
   entityName: Piece0002
   job: {fileID: 11400000, guid: 0f9c03f1fb239e147a0b025d520ebf47, type: 2}
   sprite: {fileID: 21300000, guid: eaf017adaea35e641ab306b3e250b59a, type: 3}
-  entityAddres: 0000000000000000
+  hp: 2
+  atk: 1

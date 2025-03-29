@@ -4,6 +4,7 @@
 */
 
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Gloval
@@ -43,11 +44,24 @@ namespace Gloval
 
     public enum PlyAction
     { 
-        TEST01,
-        TEST02,
-        TEST03,
+        PIECE01,
+        PIECE02,
+        PIECE03,
+        PIECE04,
 
         NONE,   //操作なし.
+    }
+
+    /// <summary>
+    /// エンティティのステート
+    /// </summary>
+    public enum EntityState
+    {
+        STOP,   // 停止
+        MOVE,   // 移動
+        ATTACK, // 攻撃
+        DEATH,  // 死亡
+        NONE,   // なし
     }
 
     /// <summary>
@@ -56,13 +70,15 @@ namespace Gloval
     public static class Gl_Const
     {
         public const int   BOARD_CELL_SIZE = 100;           // 盤面の1マスのサイズ.
-        public const float BOARD_DIS_ADD_X = 0.55f;         // 盤面にobjを配置した時のずらす量x.
-        public const float BOARD_DIS_ADD_Y = 0.72f;         // 盤面にobjを配置した時のずらす量y.
+        public const float BOARD_DIS_ADD_X = 0.58f;         // 盤面にobjを配置した時のずらす量x.
+        public const float BOARD_DIS_ADD_Y = 0.58f;         // 盤面にobjを配置した時のずらす量y.
+        public const int   BOARD_GRID_WID  = 10;            // 盤面の横のマスの個数
+        public const int   BOARD_GRID_HEI  = 10;            // 盤面の縦のマスの個数
 
+        public const float ENEMY_DEFAULT_RECAST_TIME = 10;  // デフォルトの敵生成のリキャストタイム
         public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.
-        public const float ENEMY_DEFAULT_RECAST_TIME = 5;   // デフォルトのリキャストタイム
 
-        public const float READY_PHASE_TIME = 1;            // 準備フェーズの期間.
+        public const float READY_PHASE_TIME = 15;           // 準備フェーズの期間(秒).
 
         public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
         public const string RESOURCES_PATH = "Resources/";
@@ -76,6 +92,14 @@ namespace Gloval
             IMAGES_PATH + "Treasure",       // 宝.
             IMAGES_PATH + "EnemySpawn",     // 敵の生成ポイント.
         };
+
+        //画面中央テキスト.
+        public static string[] MID_TEXT = 
+        { 
+            "敵が全滅するまで宝を守ろう",
+            "準備フェーズ",
+            "守備フェーズ",
+        };
     }
 
     /// <summary>
@@ -87,7 +111,8 @@ namespace Gloval
         /// ボード座標を元に配置.
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_bPos">ボード座標</param>
+        /// <param name="_x">ボード座標x</param>
+        /// <param name="_y">ボード座標y</param>
         public static void PlaceOnBoard(GameObject _obj, int _x, int _y)
         {
             Vector2 bPos;
@@ -149,12 +174,23 @@ namespace Gloval
         /// <summary>
         /// マウス座標取得.
         /// </summary>
+        /// <returns>ワールド座標</returns>
         public static Vector2 GetMousePos()
         {
             Vector2 mPos = Input.mousePosition;
             Vector2 wPos = Camera.main.ScreenToWorldPoint(mPos);
 
             return wPos;
+        }
+
+        /// <summary>
+        /// ディレイ
+        /// </summary>
+        /// <param name="_waitTime">待ちたい秒数</param>
+        /// <returns></returns>
+        public static IEnumerator Delay(float _waitTime)
+        {
+            yield return new WaitForSeconds(_waitTime);
         }
     }
 

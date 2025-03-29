@@ -16,4 +16,5 @@ MonoBehaviour:
   entityName: Enemy0004
   job: {fileID: 11400000, guid: c16bf6718ff4bc944b83d9a4b55a49ce, type: 2}
   sprite: {fileID: 21300000, guid: 5d1cc23301124a84295ef814ef27e4c5, type: 3}
-  entityAddres: 0000000000000000
+  hp: 2
+  atk: 2
