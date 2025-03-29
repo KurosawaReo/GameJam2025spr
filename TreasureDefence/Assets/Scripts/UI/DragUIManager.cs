@@ -73,7 +73,7 @@ public class UIAnim
 }
 
 /// <summary>
-/// UIの操作.
+/// UIから駒をドラッグする操作.
 /// </summary>
 public class DragUIManager : MonoBehaviour
 {
@@ -85,7 +85,7 @@ public class DragUIManager : MonoBehaviour
     [SerializeField] PiecePrefab prfb;
     [SerializeField] UIAnim      anim;
 
-    GameObject nowActionObj; //現在のアクションのobj.
+    GameObject nowDragObj; //現在のアクションのobj.
 
     void Update()
     {
@@ -102,10 +102,10 @@ public class DragUIManager : MonoBehaviour
     private void DragUI()
     {
         //操作objがある間(=マウスクリック中)
-        if (nowActionObj != null)
+        if (nowDragObj != null)
         {
-            var mPos = Gl_Func.GetMousePos();       //マウス座標取得.
-            nowActionObj.transform.position = mPos; //移動.
+            var mPos = Gl_Func.GetMousePos();     //マウス座標取得.
+            nowDragObj.transform.position = mPos; //移動.
 
             //マウスボタンを離した瞬間.
             if (Input.GetMouseButtonUp(0))
@@ -125,7 +125,7 @@ public class DragUIManager : MonoBehaviour
                     DragFailure(mPos); //失敗処理.
                 }
 
-                nowActionObj = null; //もう操作しないためobjデータを破棄.
+                nowDragObj = null; //もう操作しないためobjデータを破棄.
             }
         }
     }
@@ -137,20 +137,23 @@ public class DragUIManager : MonoBehaviour
     /// <param name="y">ボード座標y</param>
     private void DragSucsess(int x, int y)
     {
-        //ScriptableObjectから情報を取得.
-        scptGridMng.grid[x, y].entity = nowActionObj.GetComponent<Piece>().pieceData;
         //駒カウント+1
         scptGameMng.AddPlyPieceCnt(1);
+        //コインを消費.
+        scptGameMng.AddCoin(-1);
+        
+        //ScriptableObjectから情報を取得.
+        scptGridMng.grid[x, y].entity = nowDragObj.GetComponent<Piece>().pieceData;
+
+        scptGridMng.activePieceList.Add(new Vector2Int(x, y)); // 設置した駒の位置を保持する
+        scptGridMng.activePieceObjList.Add(nowDragObj);        // 設置した駒のオブジェクトを保持する
 
         //成功アニメーション.
         var objAnim = Instantiate(anim.circle, anim.inObj.transform);
 
-        scptGridMng.activePieceList.Add(new Vector2Int(x, y)); // 設置した駒の位置を保持する
-        scptGridMng.activePieceObjList.Add(nowActionObj); // 設置した駒のオブジェクトを保持する
-
         //ボード上に配置.
-        Gl_Func.PlaceOnBoard(nowActionObj, x, y); //操作obj.                    
-        Gl_Func.PlaceOnBoard(objAnim, x, y);      //アニメーションobj.
+        Gl_Func.PlaceOnBoard(nowDragObj, x, y); //操作obj.                    
+        Gl_Func.PlaceOnBoard(objAnim, x, y);    //アニメーションobj.
     }
     /// <summary>
     /// ドラッグ失敗.
@@ -162,7 +165,7 @@ public class DragUIManager : MonoBehaviour
         var obj = Instantiate(anim.batu, anim.inObj.transform);
         obj.transform.position = mPos;
 
-        Destroy(nowActionObj); //objは消去する.
+        Destroy(nowDragObj); //objは消去する.
     }
 
     /// <summary>
@@ -177,19 +180,19 @@ public class DragUIManager : MonoBehaviour
             switch (_plyAction)
             {
                 case PlyAction.PIECE01: 
-                    nowActionObj = Instantiate(prfb.piece01, prfb.inObj.transform); 
+                    nowDragObj = Instantiate(prfb.piece01, prfb.inObj.transform); 
                     break;
 
                 case PlyAction.PIECE02: 
-                    nowActionObj = Instantiate(prfb.piece02, prfb.inObj.transform); 
+                    nowDragObj = Instantiate(prfb.piece02, prfb.inObj.transform); 
                     break;
 
                 case PlyAction.PIECE03: 
-                    nowActionObj = Instantiate(prfb.piece03, prfb.inObj.transform); 
+                    nowDragObj = Instantiate(prfb.piece03, prfb.inObj.transform); 
                     break;
 
                 case PlyAction.PIECE04:
-                    nowActionObj = Instantiate(prfb.piece04, prfb.inObj.transform);
+                    nowDragObj = Instantiate(prfb.piece04, prfb.inObj.transform);
                     break;
             }
 

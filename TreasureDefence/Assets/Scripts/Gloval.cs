@@ -78,7 +78,7 @@ namespace Gloval
         public const float ENEMY_DEFAULT_RECAST_TIME = 10;  // デフォルトの敵生成のリキャストタイム
         public const int   ENTITY_ADDRES_NUM = 2;           // エンティティの現在地管理用配列のサイズ.
 
-        public const float READY_PHASE_TIME = 15;           // 準備フェーズの期間.
+        public const float READY_PHASE_TIME = 15;           // 準備フェーズの期間(秒).
 
         public const string IMAGES_PATH    = "Images/";     // Imagesフォルダのパス
         public const string RESOURCES_PATH = "Resources/";
@@ -111,7 +111,8 @@ namespace Gloval
         /// ボード座標を元に配置.
         /// </summary>
         /// <param name="_obj">配置するオブジェクト</param>
-        /// <param name="_bPos">ボード座標</param>
+        /// <param name="_x">ボード座標x</param>
+        /// <param name="_y">ボード座標y</param>
         public static void PlaceOnBoard(GameObject _obj, int _x, int _y)
         {
             Vector2 bPos;
@@ -173,6 +174,7 @@ namespace Gloval
         /// <summary>
         /// マウス座標取得.
         /// </summary>
+        /// <returns>ワールド座標</returns>
         public static Vector2 GetMousePos()
         {
             Vector2 mPos = Input.mousePosition;

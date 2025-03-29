@@ -62,7 +62,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 敵を描画
+    /// 敵を描画生成.
     /// </summary>
     IEnumerator SpawnEnemies()
     {
@@ -75,16 +75,17 @@ public class EnemyManager : MonoBehaviour
             StartCoroutine(SpawnEnemies());
         }
 #endif
-        //守備フェーズじゃなければ.
+        //守備フェーズじゃない間は、処理をここで留める.
         while (gameManager.gameData.phase != Phase.DEFENSE)
         {
-            yield return new WaitForSeconds(recastTime); //処理をここで留める.
+            yield return Gl_Func.Delay(recastTime);
         }
 
-        for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++)
-        {
-            for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++)
-            {
+        //全マスループ.
+        for (int x = 0; x < Gl_Const.BOARD_GRID_WID; x++) {
+            for (int y = 0; y < Gl_Const.BOARD_GRID_HEI; y++) {
+
+                //敵の生成ポイントなら.
                 if (gridManager.grid[x, y].tileType == TileType.ENEMY_SPAWN)
                 {
                     // 確率で処理をスキップして敵を生成しないようにする
@@ -119,9 +120,9 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(recastTime);
-        // 生成時間をだんだん短くする
-        recastTime -= 0.01f;
-        StartCoroutine(SpawnEnemies());
+        yield return Gl_Func.Delay(recastTime); //遅延.
+        recastTime -= 0.01f;                    //遅延(生成時間)をだんだん短くする.
+        
+        StartCoroutine(SpawnEnemies());         //この関数をループ.
     }
 }
